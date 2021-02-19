@@ -1,12 +1,12 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
+import Login from "../Login";
+import Header from "../Header";
 
-    </div>
-  );
-}
+const App = () => <div className="App">
+  <Header />
+  <Login />
+</div>;
 
 export default App;
