@@ -1,0 +1,30 @@
+.input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    label {
+        color: #fff;
+        padding: .8em 1em;
+        font-size: 19px;
+    }
+
+    input {
+        border: none;
+        border-radius: 5px;
+        padding: .5em 1em;
+        width: 250px;
+        font-size: 18px;
+        transition: .2s ease-in-out;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(39, 90, 228, .8);
+        }
+    }
+
+    img {
+        position: absolute;
+        right: -30px;
+        top: 65px;
+    }
+}
