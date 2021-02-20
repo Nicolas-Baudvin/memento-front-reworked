@@ -19,13 +19,7 @@ const Input: React.FC<InputProps> = ({
     <div className="input">
       <label htmlFor={htmlFor}>{label}</label>
       <input type={type} placeholder={placeholder} />
-      <img
-        src={`${process.env.PUBLIC_URL}/img/question.png`}
-        alt="tooltip"
-        width="20"
-        height="20"
-      />
-      <span>{tooltip}</span>
+      <p>{tooltip}</p>
     </div>
   );
 };

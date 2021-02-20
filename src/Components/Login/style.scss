@@ -15,9 +15,10 @@
 
         a {
             color: #5d55fa;
+            transition: .2s ease-in-out;
 
             &:hover {
-                color: #5D55FA;
+                color: #4b44c7;
             }
         }
     }
