@@ -1,6 +1,6 @@
 import "./style.scss";
-import Input from "./Input";
-import Button from "./Button";
+import Input from "../../ReusableComponents/Input";
+import Button from "../../ReusableComponents/Button";
 
 const Login = () => {
   return (
