@@ -2,14 +2,27 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: rgba(#000000, .7);
 
     .logo {
         display: flex;
         align-items: center;
         cursor: pointer;
+
         h1 {
             color: #fff;
             font-weight: 500;
+        }
+        img {
+            background-color: rgba(255,255,255, .1);
+            transition: .2s ease-in-out;
+            margin-right: 1em;
+        }
+
+        &:hover {
+            img {
+                background-color: rgba(226, 226, 226, 0.1);
+            }
         }
     }
 
@@ -23,7 +36,7 @@ header {
             background-color: transparent;
             color: white;
             font-weight: 500;
-            font-size: 30px;
+            font-size: 24px;
             text-transform: uppercase;
             cursor: pointer;
             padding: .5em 1em;
