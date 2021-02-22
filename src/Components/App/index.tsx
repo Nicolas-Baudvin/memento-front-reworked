@@ -27,7 +27,7 @@ const App = () => (
           <Signup />
         </Route>
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   </Router>
 );
