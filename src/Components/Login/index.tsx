@@ -1,6 +1,5 @@
+import Form from "./Form";
 import "./style.scss";
-import Input from "../../ReusableComponents/Input";
-import Button from "../../ReusableComponents/Button";
 
 const Login = () => {
   return (
@@ -8,23 +7,10 @@ const Login = () => {
       <div className="registration-container">
         <img src={`${process.env.PUBLIC_URL}/img/login.png`} alt="login" />
         <h2>Connexion</h2>
-        <Input
-          type="email"
-          label="Email"
-          htmlFor="email"
-          placeholder="exemple@gmail.com"
-        />
-        <Input
-          type="password"
-          label="Mot de passe"
-          htmlFor="pass"
-          placeholder="•••••••••"
-        />
-        <Button title="Connexion" />
-
+        <Form />
         <div className="registration-links">
-            <a href="#">Mot de passe oublié ?</a>
-            <a href="#">Pas de compte ?</a>
+          <a href="#">Mot de passe oublié ?</a>
+          <a href="#">Pas de compte ?</a>
         </div>
       </div>
     </div>
