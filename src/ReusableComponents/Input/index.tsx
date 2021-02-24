@@ -6,6 +6,8 @@ interface InputProps {
   htmlFor: string;
   tooltip?: string;
   type: string;
+  onChange: Function;
+  value: string;
 }
 
 const Input: React.FC<InputProps> = ({
