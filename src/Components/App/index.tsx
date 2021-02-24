@@ -6,30 +6,33 @@ import Login from "../Login";
 import Header from "../Header";
 import Signup from "../Signup";
 import Home from "../Home";
-import Footer from "../Footer";
+
+import store from "../../Store/";
 
 // background
 import Particles from "./Particles";
+import { Provider } from "react-redux";
 
 const App = () => (
-  <Router>
-    <div className="App">
-      <Particles />
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/connexion">
-          <Login />
-        </Route>
-        <Route exact path="/inscription">
-          <Signup />
-        </Route>
-      </Switch>
-      {/* <Footer /> */}
-    </div>
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <div className="App">
+        <Particles />
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/connexion">
+            <Login />
+          </Route>
+          <Route exact path="/inscription">
+            <Signup />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  </Provider>
 );
 
 export default App;
