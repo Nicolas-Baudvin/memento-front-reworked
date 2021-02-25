@@ -1,3 +1,5 @@
+import { InputName } from "../../Login/Form/types";
+
 const inputs: Array<InputArrayProps> = [
   {
     type: "email",
@@ -10,7 +12,7 @@ const inputs: Array<InputArrayProps> = [
     type: "password",
     label: "Mot de passe",
     placeholder: "••••••••",
-    tooltip: "Le mot de passe doit contenir 8 caractères minimum",
+    tooltip: "Le mot de passe doit contenir 8 caractères minimum, 1 minuscule, 1 majuscule, 1 chiffre",
     htmlFor: "password",
   },
   {
@@ -27,7 +29,7 @@ export interface InputArrayProps {
     label: string;
     placeholder: string;
     tooltip: string;
-    htmlFor: string;
+    htmlFor: InputName;
 }
 
 export default inputs

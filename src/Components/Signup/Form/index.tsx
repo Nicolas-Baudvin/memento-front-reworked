@@ -4,9 +4,22 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { createAccount } from "../../../Store/UserData/actions";
 import inputs from "../utils";
+import { InputName } from "../../Login/Form/types";
+import checkFields, { FormErrors } from "../utils/checkFields";
+
+const initialErrorState = {
+  email: "",
+  password: "",
+  confPass: ""
+};
 
 const Form: React.FC = () => {
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    confPass: "",
+  });
 
   const [state, setState] = useState<any>({
     email: "",
@@ -16,22 +29,28 @@ const Form: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createAccount(state));
+    const formErrors: FormErrors = checkFields(state);
+    if (formErrors.confPass || formErrors.password || formErrors.email)
+      return setErrors({ ...formErrors });
+  
+    setErrors({ ...initialErrorState });
+    return dispatch(createAccount(state));
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    inputName: string
+    inputName: InputName
   ) => {
     setState({ ...state, [inputName]: e.target.value });
   };
 
   return (
     <form onSubmit={handleSubmit} action="">
-      {inputs.map((input) => (
+      {inputs.map((input, i) => (
         <Input
+          key={i}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleChange(e, input.type)
+            handleChange(e, input.htmlFor)
           }
           value={state[input.htmlFor]}
           type={input.type}
@@ -39,6 +58,7 @@ const Form: React.FC = () => {
           htmlFor={input.htmlFor}
           placeholder={input.placeholder}
           tooltip={input.tooltip}
+          error={errors[input.htmlFor]}
         />
       ))}
       <Button title="Inscription" />
