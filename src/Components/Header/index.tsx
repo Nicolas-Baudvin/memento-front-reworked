@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import cx from "classnames";
 import "./style.scss";
@@ -11,10 +11,6 @@ const Header = () => {
     history.push(pathname);
     setSelected(pathname);
   };
-
-  useEffect(() => {
-    console.log(history.location.pathname);
-  }, [history]);
 
   return (
     <header>
