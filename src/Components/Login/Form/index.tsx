@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import Button from "../../../ReusableComponents/Button";
 import Input from "../../../ReusableComponents/Input";
 import { userAuth } from "../../../Store/UserData/actions";
+import { InputName } from "./types";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Form = () => {
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    inputName: string
+    inputName: InputName
   ) => setState({ ...state, [inputName]: e.target.value });
 
   return (
@@ -28,7 +29,7 @@ const Form = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleChange(e, "email")
         }
-        value={""}
+        value={state.email}
         type="email"
         label="Email"
         htmlFor="email"
@@ -38,7 +39,7 @@ const Form = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleChange(e, "password")
         }
-        value={""}
+        value={state.password}
         type="password"
         label="Mot de passe"
         htmlFor="pass"
