@@ -30,9 +30,13 @@
         cursor: pointer;
     }
 
-    p {
+    &-tooltip {
         color: #aaa;
-        font-size: 12px;
+        font-size: 14px;
         max-width: 250px;
+    }
+
+    &-error {
+        color: #ff0000;
     }
 }
