@@ -4,7 +4,8 @@ export interface UserDataState {
   email: string;
   token: string;
   isLoading: boolean;
-  message: string;
+  message?: string;
+  error?: string;
 }
 
 export interface UserData {
@@ -16,6 +17,8 @@ export interface NewUserData {
   email: string;
   password: string;
   confPass: string;
+  error?: string;
+  message?: string
 }
 
 export interface StoreFetchedData {

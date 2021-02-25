@@ -11,6 +11,7 @@ const initialState: UserDataState = {
   token: "",
   message: "",
   isLoading: false,
+  error: "",
 };
 
 const reducer = (
@@ -21,8 +22,8 @@ const reducer = (
     case CREATE_ACCOUNT: {
       return {
         ...state,
-        message:
-          "Le compte a bien été créer, vous pouvez désormais vous connecter via la page de connexion",
+        message: action.payload.message,
+        error: action.payload.error
       };
     }
     case USER_AUTH: {
