@@ -4,9 +4,15 @@ import Button from "../../../ReusableComponents/Button";
 import Input from "../../../ReusableComponents/Input";
 import { userAuth } from "../../../Store/UserData/actions";
 import { InputName } from "./types";
+import checkLoginFields from "./utils";
 
 const Form = () => {
   const dispatch = useDispatch();
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
 
   const [state, setState] = useState<any>({
     email: "",
@@ -15,6 +21,9 @@ const Form = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const errors = checkLoginFields(state);
+    if (errors.email || errors.password) return setErrors({ ...errors });
+    setErrors({ email: "", password: "" });
     dispatch(userAuth(state));
   };
 
@@ -34,6 +43,7 @@ const Form = () => {
         label="Email"
         htmlFor="email"
         placeholder="exemple@gmail.com"
+        error={errors.email}
       />
       <Input
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -44,6 +54,7 @@ const Form = () => {
         label="Mot de passe"
         htmlFor="pass"
         placeholder="•••••••••"
+        error={errors.password}
       />
       <Button title="Connexion" />
     </form>
