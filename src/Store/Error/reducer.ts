@@ -15,10 +15,10 @@ const reducer = (state = initialState, action: ErrorActions): ErrorState => {
       };
     }
     case HIDE_ERROR: {
-        return {
-            ...state,
-            isShow: false
-        };
+      return {
+        ...state,
+        isShow: false,
+      };
     }
     default: {
       return state;

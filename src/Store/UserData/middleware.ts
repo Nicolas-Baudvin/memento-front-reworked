@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Middleware } from "redux";
+import { throwNewError } from "../Error/actions";
 import { RootState } from "../reducer";
 import { CREATE_ACCOUNT, LOGOUT, USER_AUTH } from "./actions";
 
@@ -18,12 +19,14 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
         });
         action.payload.message = res.data.message;
       } catch (e) {
-        console.log(e, e?.response?.data?.errors);
         if (e?.response?.data?.error)
-          action.payload.error = e.response.data.error;
+          store.dispatch(throwNewError(e.response.data.error));
         else if (e?.response?.data?.errors)
-          action.payload.error = e.response.data.errors.msg;
-        else action.payload.error = "Une erreur avec le serveur est survenue";
+          store.dispatch(throwNewError(e.response.data.errors[0].msg));
+        else
+          store.dispatch(
+            throwNewError("Une erreur est survenue avec le serveur.")
+          );
       }
       next(action);
       break;
@@ -35,12 +38,19 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
           method: "post",
           data: {
             ...action.payload,
-          }
+          },
         });
-        action.payload = { ...res.data, message: "Vous êtes connectés" }
+        action.payload = { ...res.data, message: "Vous êtes connectés" };
         next(action);
       } catch (e) {
-        
+        if (e?.response?.data?.error)
+          store.dispatch(throwNewError(e.response.data.error));
+        else if (e?.response?.data?.errors)
+          store.dispatch(throwNewError(e.response.data.errors[0].msg));
+        else
+          store.dispatch(
+            throwNewError("Une erreur est survenue avec le serveur.")
+          );
       }
       break;
     }
