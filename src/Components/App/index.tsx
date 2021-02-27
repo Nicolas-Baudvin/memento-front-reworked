@@ -7,14 +7,12 @@ import Header from "../Header";
 import Signup from "../Signup";
 import Home from "../Home";
 
-import store from "../../Store/";
-
 // background
 import Particles from "./Particles";
-import { Provider } from "react-redux";
+import Error from "../Error";
 
-const App = () => (
-  <Provider store={store}>
+const App = () => {
+  return (
     <Router>
       <div className="App">
         <Particles />
@@ -30,9 +28,10 @@ const App = () => (
             <Signup />
           </Route>
         </Switch>
+        <Error />
       </div>
     </Router>
-  </Provider>
-);
+  );
+};
 
 export default App;
