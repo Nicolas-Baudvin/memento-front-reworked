@@ -2,12 +2,13 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { rootReducer } from "./reducer";
 
 import UserMw from "./UserData/middleware";
+import ErrorMw from "./Error/middleware";
 
 /**
  * Middlewares
  */
 
-const middlewares = applyMiddleware(UserMw);
+const middlewares = applyMiddleware(UserMw, ErrorMw);
 
 const withReduxDevTools = compose;
 

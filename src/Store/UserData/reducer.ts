@@ -29,7 +29,7 @@ const reducer = (
     case USER_AUTH: {
       return {
         ...state,
-        message: "Vous êtes connectés",
+        ...action.payload
       };
     }
     case STORE_FETCHED_DATA: {

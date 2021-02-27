@@ -29,7 +29,19 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
       break;
     }
     case USER_AUTH: {
-      next(action);
+      try {
+        const res = await axios({
+          url: process.env.REACT_APP_LOGIN_URL,
+          method: "post",
+          data: {
+            ...action.payload,
+          }
+        });
+        action.payload = { ...res.data, message: "Vous êtes connectés" }
+        next(action);
+      } catch (e) {
+        
+      }
       break;
     }
     case LOGOUT: {
