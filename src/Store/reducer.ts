@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 import UserDataReducer from "./UserData/reducer";
-import ErrorReducer from "./Error/reducer";
+import ErrorReducer from "./Message/reducer";
 
 
 export const rootReducer = combineReducers({

@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { rootReducer } from "./reducer";
 
 import UserMw from "./UserData/middleware";
-import ErrorMw from "./Error/middleware";
+import ErrorMw from "./Message/middleware";
 
 /**
  * Middlewares
