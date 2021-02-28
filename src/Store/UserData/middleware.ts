@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Middleware } from "redux";
-import { throwNewError } from "../Error/actions";
+import { newMessage, throwNewError } from "../Message/actions";
 import { RootState } from "../reducer";
 import { CREATE_ACCOUNT, LOGOUT, USER_AUTH } from "./actions";
 
@@ -17,7 +17,9 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
             ...action.payload,
           },
         });
-        action.payload.message = res.data.message;
+        console.log(newMessage(res.data.message));
+        store.dispatch(newMessage(res.data.message));
+        next(action);
       } catch (e) {
         if (e?.response?.data?.error)
           store.dispatch(throwNewError(e.response.data.error));
@@ -28,7 +30,6 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
             throwNewError("Une erreur est survenue avec le serveur.")
           );
       }
-      next(action);
       break;
     }
     case USER_AUTH: {
