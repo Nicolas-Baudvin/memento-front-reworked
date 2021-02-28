@@ -1,0 +1,56 @@
+.popup {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: -20%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+    padding: 0.7em;
+    width: max-content;
+    font-size: 25px;
+    border-radius: 8px;
+    transition: 0.5s ease-in-out;
+    opacity: 0;
+    cursor: pointer;
+
+    &-show {
+        bottom: 5%;
+        opacity: 1;
+    }
+
+    &-hide {
+        bottom: -20%;
+        opacity: 0;
+    }
+
+    img {
+        width: 40px;
+        height: 40px;
+        margin-right: 1.5em;
+    }
+
+    span {
+        font-size: 12px;
+        font-style: italic;
+        color: #eee;
+    }
+}
+
+.error {
+    background-color: #e71d36;
+    box-shadow: 0 0 2px 5px rgba(#e71d36, 0.1);
+
+    &:hover {
+        background-color: #a51526;
+    }
+}
+
+.message {
+    background-color: #2ab617;
+    box-shadow: 0 0 2px 5px rgba(#33dd1c, 0.1);
+
+    &:hover {
+        background-color: #1d7c10;
+    }
+}
