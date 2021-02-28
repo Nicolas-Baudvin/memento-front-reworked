@@ -10,7 +10,7 @@ import checkFields, { FormErrors } from "../utils/checkFields";
 const initialErrorState = {
   email: "",
   password: "",
-  confPass: ""
+  confPass: "",
 };
 
 const Form: React.FC = () => {
@@ -32,7 +32,7 @@ const Form: React.FC = () => {
     const formErrors: FormErrors = checkFields(state);
     if (formErrors.confPass || formErrors.password || formErrors.email)
       return setErrors({ ...formErrors });
-  
+
     setErrors({ ...initialErrorState });
     return dispatch(createAccount(state));
   };
@@ -40,9 +40,7 @@ const Form: React.FC = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     inputName: InputName
-  ) => {
-    setState({ ...state, [inputName]: e.target.value });
-  };
+  ) => setState({ ...state, [inputName]: e.target.value });
 
   return (
     <form onSubmit={handleSubmit} action="">
