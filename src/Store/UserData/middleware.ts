@@ -42,6 +42,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
           },
         });
         action.payload = { ...res.data, message: "Vous êtes connectés" };
+        store.dispatch(newMessage("Vous êtes connectés avec succès !"));
         next(action);
       } catch (e) {
         if (e?.response?.data?.error)
