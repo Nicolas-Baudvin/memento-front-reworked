@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
 
@@ -9,7 +9,7 @@ import Home from "../Home";
 
 // background
 import Particles from "./Particles";
-import Error from "../Error";
+import Popup from "../Popup";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Store/reducer";
 import Dashboard from "../Dashboard";
@@ -35,7 +35,7 @@ const App = () => {
             <Dashboard />
           </Route>
         </Switch>
-        <Error />
+        <Popup />
       </div>
     </Router>
   );
