@@ -6,6 +6,7 @@ export interface UserDataState {
   isLoading: boolean;
   message?: string;
   error?: string;
+  _id: string;
 }
 
 export interface UserData {
@@ -24,6 +25,7 @@ export interface NewUserData {
 export interface StoreFetchedData {
   email: string;
   token: string;
+  _id: string;
 }
 
 export interface CreateAccountAction {

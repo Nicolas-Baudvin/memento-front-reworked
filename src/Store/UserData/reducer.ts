@@ -12,6 +12,7 @@ const initialState: UserDataState = {
   message: "",
   isLoading: false,
   error: "",
+  _id: ""
 };
 
 const reducer = (
