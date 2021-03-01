@@ -1,8 +1,9 @@
-import { GET_BOARD, NEW_BOARD, UPDATE_CURRENT_BOARDS } from "./actions";
+import { GET_BOARDS, NEW_BOARD, UPDATE_BOARDS } from "./actions";
 
 export interface BoardState {
-  boards?: Array<Board>;
-  currentBoard?: Board;
+  all?: Array<Board>;
+  current?: Board;
+  favs?: Array<Board>;
 }
 
 export interface Board {
@@ -22,12 +23,12 @@ export interface Owner {
  */
 
 export interface UpdateCurrentBoardsAction {
-    type: typeof UPDATE_CURRENT_BOARDS,
-    payload: Array<Board> 
+  type: typeof UPDATE_BOARDS;
+  payload: Array<Board>;
 }
 
 export interface GetBoardAction {
-  type: typeof GET_BOARD;
+  type: typeof GET_BOARDS;
 }
 
 export interface NewBoardAction {
@@ -40,4 +41,7 @@ export interface NewBoardPayload {
   image: string;
 }
 
-export type BoardActions = GetBoardAction | NewBoardAction | UpdateCurrentBoardsAction;
+export type BoardActions =
+  | GetBoardAction
+  | NewBoardAction
+  | UpdateCurrentBoardsAction;
