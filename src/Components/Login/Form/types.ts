@@ -1,4 +1,4 @@
-export type InputName = "email" | "password" | "confPass";
+export type InputName = "email" | "password" | "confPass" | "username";
 export interface UserDatas {
   email: string;
   password: string;
