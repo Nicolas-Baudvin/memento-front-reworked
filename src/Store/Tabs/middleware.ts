@@ -19,6 +19,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
       try {
         const res = await axios({
           url: process.env.REACT_APP_GET_BOARDS,
+          method: "post",
           data: {
             _id,
             email,
@@ -30,7 +31,6 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
         store.dispatch(updateBoards(res.data.boards));
         next(action);
       } catch (e) {
-        console.log(e);
         if (e?.response?.data?.error)
           store.dispatch(throwNewError(e.response.data.error));
         else if (e?.response?.data?.errors)
