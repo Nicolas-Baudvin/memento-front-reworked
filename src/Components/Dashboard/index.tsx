@@ -12,11 +12,8 @@ const Dashboard = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!token) {
-      history.push("/");
-    } else {
-      dispatch(getBoards());
-    }
+    if (!token) history.push("/");
+    else dispatch(getBoards());
   }, []);
 
   return (
@@ -24,12 +21,17 @@ const Dashboard = () => {
       <div className="dashboard-block">
         <h2>Mes tableaux</h2>
         <div className="dashboard-tabs">
-          {
-            all && all.map((board) => <div className="dashboard-tabs__item">
-              <img src={board.image} alt="board" />
-              <h3> {board.name} </h3>
-            </div>)
-          }
+          {all &&
+            all.map((board) => (
+              <div className="dashboard-tabs__item">
+                <img src={board.image} alt="board" />
+                <h3> {board.name} </h3>
+              </div>
+            ))}
+        </div>
+        <div className="dashboard-create">
+          <img src={`${process.env.PUBLIC_URL}/img/plus.svg`} alt="Ajouter un tableau"/>
+          <p>Ajouter</p>
         </div>
       </div>
     </div>
