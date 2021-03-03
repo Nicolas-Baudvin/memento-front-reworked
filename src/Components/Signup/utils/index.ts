@@ -22,6 +22,13 @@ const inputs: Array<InputArrayProps> = [
     tooltip: "Les mots de passe doivent être identiques",
     htmlFor: "confPass",
   },
+  {
+    type: "username",
+    label: "Pseudonyme",
+    placeholder: "PetitHeron85",
+    tooltip: "Le pseudonyme doit faire 20 caractères maximum.",
+    htmlFor: "username"
+  }
 ];
 
 export interface InputArrayProps {

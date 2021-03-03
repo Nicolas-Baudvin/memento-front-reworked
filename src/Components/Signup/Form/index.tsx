@@ -11,6 +11,7 @@ const initialErrorState = {
   email: "",
   password: "",
   confPass: "",
+  username: ""
 };
 
 const Form: React.FC = () => {
@@ -19,18 +20,20 @@ const Form: React.FC = () => {
     email: "",
     password: "",
     confPass: "",
+    username: ""
   });
 
   const [state, setState] = useState<any>({
     email: "",
     password: "",
     confPass: "",
+    username: ""
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formErrors: FormErrors = checkFields(state);
-    if (formErrors.confPass || formErrors.password || formErrors.email)
+    if (formErrors.confPass || formErrors.password || formErrors.email || formErrors.username)
       return setErrors({ ...formErrors });
 
     setErrors({ ...initialErrorState });
