@@ -1,3 +1,4 @@
+import { getDataFromLocalStorage } from "../../Utils";
 import {
   CREATE_ACCOUNT,
   LOGOUT,
@@ -8,11 +9,11 @@ import { UserDataActions, UserDataState } from "./types";
 
 const initialState: UserDataState = {
   email: "",
-  token: "",
+  token: getDataFromLocalStorage("tkn"),
   message: "",
   isLoading: false,
   error: "",
-  _id: ""
+  _id: getDataFromLocalStorage("_id"),
 };
 
 const reducer = (
