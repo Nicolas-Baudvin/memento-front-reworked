@@ -14,6 +14,7 @@ const initialState: UserDataState = {
   isLoading: false,
   error: "",
   _id: getDataFromLocalStorage("_id"),
+  username: ""
 };
 
 const reducer = (
@@ -25,13 +26,13 @@ const reducer = (
       return {
         ...state,
         message: action.payload.message,
-        error: action.payload.error
+        error: action.payload.error,
       };
     }
     case USER_AUTH: {
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       };
     }
     case STORE_FETCHED_DATA: {
@@ -41,7 +42,7 @@ const reducer = (
       };
     }
     case LOGOUT: {
-      return initialState;
+      return { ...initialState, token: "" };
     }
     default:
       return state;

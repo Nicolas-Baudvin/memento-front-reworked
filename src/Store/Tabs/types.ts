@@ -7,9 +7,10 @@ export interface BoardState {
 }
 
 export interface Board {
-  name: string;
-  owner: Owner;
-  image: string;
+  title: string;
+  ownerID: string;
+  owner: { username: string }
+  image: ImageData;
   _id: string;
 }
 
@@ -36,9 +37,14 @@ export interface NewBoardAction {
   payload: NewBoardPayload;
 }
 
+export interface ImageData {
+  url: string;
+  alt: string;
+}
+
 export interface NewBoardPayload {
-  name: string;
-  image: string;
+  title: string;
+  image: ImageData;
 }
 
 export type BoardActions =

@@ -59,6 +59,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
       break;
     }
     case LOGOUT: {
+      console.log("logout")
       localStorage.clear();
       next(action);
       break;

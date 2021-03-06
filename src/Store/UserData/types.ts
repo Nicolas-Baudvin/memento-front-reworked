@@ -7,6 +7,7 @@ export interface UserDataState {
   message?: string;
   error?: string;
   _id: string;
+  username: string;
 }
 
 export interface UserData {

@@ -15,7 +15,7 @@ export const userAuth = (userData: UserData): UserDataActions => ({
   payload: userData,
 });
 
-export const Logout = (): UserDataActions => ({
+export const logout = (): UserDataActions => ({
     type: LOGOUT,
 });
 
