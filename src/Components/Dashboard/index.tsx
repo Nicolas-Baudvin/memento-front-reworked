@@ -4,34 +4,26 @@ import { useHistory } from "react-router-dom";
 import { RootState } from "../../Store/reducer";
 import { getBoards } from "../../Store/Tabs/actions";
 import "./style.scss";
+import AllBoards from "./Boards";
+import CreateButton from "./CreateButton";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state: RootState) => state.user);
-  const { all } = useSelector((state: RootState) => state.boards);
   const history = useHistory();
 
   useEffect(() => {
     if (!token) history.push("/");
     else dispatch(getBoards());
-  }, []);
+  }, [token]);
 
   return (
     <div className="dashboard">
       <div className="dashboard-block">
         <h2>Mes tableaux</h2>
-        <div className="dashboard-tabs">
-          {all &&
-            all.map((board) => (
-              <div className="dashboard-tabs__item">
-                <img src={board.image} alt="board" />
-                <h3> {board.name} </h3>
-              </div>
-            ))}
-        </div>
-        <div className="dashboard-create">
-          <img src={`${process.env.PUBLIC_URL}/img/plus.svg`} alt="Ajouter un tableau"/>
-          <p>Ajouter</p>
+        <div className="dashboard-container">
+          <AllBoards />
+          <CreateButton />
         </div>
       </div>
     </div>

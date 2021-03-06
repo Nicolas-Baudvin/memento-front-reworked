@@ -7,6 +7,156 @@
         font-size: 35px;
     }
 
+    &-container {
+        display: flex;
+        align-items: center;
+    }
+
+    &-boards {
+        display: flex;
+        align-items: center;
+        &__item {
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 300px;
+            height: 380px;
+            margin: 0 1.5em;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: .2s ease-in-out;
+
+            &--container {
+                overflow: hidden;
+                width: max-content;
+                height: max-content;
+                background-color: transparent;
+            }
+
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.3);
+              img {
+                  transform: scale(1.1);
+              }
+            }
+
+            h3 {
+                color: #fff;
+                font-size: 25px;
+                margin: 0;
+                text-transform: uppercase;
+                letter-spacing: .1em;
+            }
+
+            img {
+                width: 300px;
+                height: 300px;
+                object-fit: cover;
+                object-position: center;
+                transition: .2s ease-in-out;
+            }
+        }
+    }
+
+    &-form {
+        background-color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: -1;
+        transition: 0.2s ease-in-out;
+        cursor: default;
+        border-radius: 15px;
+
+        &-button {
+            border: none;
+            outline: none;
+            padding: 0.7em 1.2em;
+            border-radius: 8px;
+            margin: 0.7em 0;
+            width: 200px;
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            box-shadow: 0 2px 9px rgba(0, 0, 0, 0.6);
+            transition: 0.2s ease-in-out;
+
+            &:hover {
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+            }
+
+            &:active {
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+                transform: translate(0, 2px);
+            }
+
+            &:focus {
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+                transform: translate(0, 2px);
+            }
+        }
+
+        input {
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            padding: 0.4em 0.8em;
+            outline: none;
+            margin: 1em 0;
+        }
+
+        &-pics {
+            width: 50%;
+            display: flex;
+            overflow-x: auto;
+            padding: 0.5em 1em;
+            img {
+                width: 70px;
+                height: 40px;
+                margin: 0 0.7em;
+                cursor: pointer;
+            }
+
+            &-btn {
+                border: none;
+                background-color: transparent;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                transition: 0.2s ease-in-out;
+                outline: none;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                &:focus {
+                    box-shadow: 0 0 0 2px rgba(20, 108, 240, 0.9);
+                }
+
+                &:active {
+                    box-shadow: 0 0 0 2px rgba(20, 108, 240, 0.9);
+                }
+
+                &:hover {
+                    box-shadow: 0 0 0 2px rgba(20, 108, 240, 0.9);
+                }
+            }
+        }
+    }
+
     &-block {
         display: flex;
         flex-direction: column;
@@ -15,35 +165,81 @@
     }
 
     &-create {
-        padding: 8em 5em;
-        background-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6) inset;
+        width: 300px;
+        height: 380px;
+        position: relative;
         border-radius: 15px;
-        cursor: pointer;
-        transition: .2s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6) inset;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 157px;
+
+        &-add {
+            background-color: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+                box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6) inset;
+
+                .dashboard-create-plus {
+                    transform: translate(0, -50%) rotate(360deg);
+                }
+            }
+        }
+
         p {
             font-size: 23px;
             color: #fff;
             font-weight: bold;
-            letter-spacing: .1em;
+            letter-spacing: 0.1em;
+            position: relative;
+            top: 50%;
+            transform: translate(0, -50%);
         }
 
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6) inset;
-
-            img {
-                transform: rotate(360deg) scale(1.1);
-            }
-        }
         img {
             width: 80px;
             height: 80px;
             transition: 0.2s ease-in-out;
+            position: relative;
+            top: 50%;
+            transform: translate(0, -50%);
         }
+    }
+}
+
+.dashboard-create-hide {
+    opacity: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
+.dashboard-form-show {
+    opacity: 1;
+    z-index: 10;
+}
+
+.red {
+    background-color: #e20000;
+
+    &:hover {
+        background-color: darken(#e20000, 10%);
+    }
+}
+
+.purple {
+    background-color: #5c54f6;
+
+    &:hover {
+        background-color: darken(#5c54f6, 10%);
     }
 }
