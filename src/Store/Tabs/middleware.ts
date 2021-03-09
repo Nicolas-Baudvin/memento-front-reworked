@@ -3,17 +3,50 @@ import { Middleware } from "redux";
 import { throwNewError } from "../Message/actions";
 import { RootState } from "../reducer";
 import { logout } from "../UserData/actions";
-import { GET_BOARDS, NEW_BOARD, updateBoards } from "./actions";
+import { DELETE_BOARD, GET_BOARDS, NEW_BOARD, updateBoards } from "./actions";
 import { BoardActions } from "./types";
 
 const middleware: Middleware<{}, RootState> = (store) => (next) => async (
   action: BoardActions
 ) => {
   switch (action.type) {
+    case DELETE_BOARD: {
+      const { token, _id } = store.getState().user;
+
+      try {
+        const res = await axios({
+          url: process.env.REACT_APP_DELETE_BOARD,
+          method: "delete",
+          data: {
+            board: action.payload,
+            _id,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        store.dispatch(updateBoards(res.data.boards));
+
+        next(action);
+      } catch (e) {
+        console.log(e);
+        if (e?.response?.status === 403) store.dispatch(logout());
+        if (e?.response?.data?.error)
+          store.dispatch(throwNewError(e.response.data.error));
+        else if (e?.response?.data?.errors)
+          store.dispatch(throwNewError(e.response.data.errors[0].msg));
+        else
+          store.dispatch(
+            throwNewError("Une erreur est survenue avec le serveur.")
+          );
+      }
+      break;
+    }
     case NEW_BOARD: {
       const { token, _id, email, username } = store.getState().user;
       const { image, title } = action.payload;
-
+      console.log(username);
       try {
         const res = await axios({
           url: process.env.REACT_APP_CREATE_BOARDS,
@@ -23,7 +56,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
             username,
             email,
             image,
-            title
+            title,
           },
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,4 +1,4 @@
-import { GET_BOARDS, NEW_BOARD, UPDATE_BOARDS } from "./actions";
+import { DELETE_BOARD, GET_BOARDS, NEW_BOARD, UPDATE_BOARDS } from "./actions";
 
 export interface BoardState {
   all?: Array<Board>;
@@ -37,6 +37,11 @@ export interface NewBoardAction {
   payload: NewBoardPayload;
 }
 
+export interface DeleteBoardAction {
+  type: typeof DELETE_BOARD,
+  payload: Board
+}
+
 export interface ImageData {
   url: string;
   alt: string;
@@ -50,4 +55,5 @@ export interface NewBoardPayload {
 export type BoardActions =
   | GetBoardAction
   | NewBoardAction
-  | UpdateCurrentBoardsAction;
+  | UpdateCurrentBoardsAction
+  | DeleteBoardAction;
