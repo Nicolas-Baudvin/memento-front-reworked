@@ -2,6 +2,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .delete {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+        right: -2em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
     h2 {
         color: #fff;
         font-size: 35px;
@@ -16,7 +34,8 @@
         display: flex;
         align-items: center;
         &__item {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgb(92, 89, 96);
+            background: linear-gradient(139deg, rgba(92, 89, 96, 1) 0%, rgba(31, 34, 32, 1) 100%);
             width: 300px;
             height: 380px;
             margin: 0 1.5em;
@@ -26,7 +45,8 @@
             align-items: center;
             overflow: hidden;
             cursor: pointer;
-            transition: .2s ease-in-out;
+            transition: 0.2s ease-in-out;
+            position: relative;
 
             &--container {
                 overflow: hidden;
@@ -35,11 +55,37 @@
                 background-color: transparent;
             }
 
+            &--texts {
+                display: flex;
+                width: 100%;
+                align-items: center;
+            }
+
+            &--owner {
+                color: #eee;
+            }
+
             &:hover {
-              background-color: rgba(255, 255, 255, 0.3);
-              img {
-                  transform: scale(1.1);
-              }
+                box-shadow: 0 0 0 3px #5c54f6;
+
+                .delete {
+                    opacity: 1;
+                    right: 1em;
+                }
+            }
+
+            p {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background-color: #5c54f6;
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size: 25px;
+                margin: 0 1em 0 0.7em;
+                padding: 0.7em;
             }
 
             h3 {
@@ -47,7 +93,7 @@
                 font-size: 25px;
                 margin: 0;
                 text-transform: uppercase;
-                letter-spacing: .1em;
+                letter-spacing: 0.1em;
             }
 
             img {
@@ -55,7 +101,7 @@
                 height: 300px;
                 object-fit: cover;
                 object-position: center;
-                transition: .2s ease-in-out;
+                transition: 0.2s ease-in-out;
             }
         }
     }

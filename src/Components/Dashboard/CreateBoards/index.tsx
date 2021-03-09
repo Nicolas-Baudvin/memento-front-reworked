@@ -1,6 +1,7 @@
 import cx from "classnames";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { throwNewError } from "../../../Store/Message/actions";
 import { newBoard } from "../../../Store/Tabs/actions";
 import { ImageData } from "../../../Store/Tabs/types";
 import Pictures from "./Pictures";
@@ -29,6 +30,8 @@ const CreateBoards: React.FC<CreateBoardsProps> = ({ isShow, setShow }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (image.url && title) dispatch(newBoard({ image, title }));
+
+    if (!image.url) dispatch(throwNewError("Veuillez selectionner une image"));
   };
 
   return (
@@ -44,8 +47,9 @@ const CreateBoards: React.FC<CreateBoardsProps> = ({ isShow, setShow }) => {
       />
       <Pictures handleClickImage={handleClickImage} />
 
-      <button className="dashboard-form-button purple">Créer</button>
+      <button type="submit" className="dashboard-form-button purple">Créer</button>
       <button
+        type="button"
         onClick={() => setShow(!isShow)}
         className="dashboard-form-button red"
       >
