@@ -14,7 +14,7 @@ const initialState: UserDataState = {
   isLoading: false,
   error: "",
   _id: getDataFromLocalStorage("_id"),
-  username: ""
+  username: getDataFromLocalStorage("username"),
 };
 
 const reducer = (
