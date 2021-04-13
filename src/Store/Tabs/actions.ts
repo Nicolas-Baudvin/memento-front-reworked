@@ -4,6 +4,7 @@ export const NEW_BOARD = "board/NEW_BOARD";
 export const GET_BOARDS = "board/GET_BOARD";
 export const UPDATE_BOARDS = "board/UPDATE_BOARDS";
 export const DELETE_BOARD = "board/DELETE_BOARD";
+export const NEW_CURRENT_BOARD = "board/NEW_CURRENT_BOARD";
 
 export const deleteBoard = (board: Board): BoardActions => ({
   type: DELETE_BOARD,
@@ -22,4 +23,9 @@ export const newBoard = (data: NewBoardPayload): BoardActions => ({
 
 export const getBoards = (): BoardActions => ({
   type: GET_BOARDS,
+});
+
+export const newCurrentBoard = (data: Board): BoardActions => ({
+  type: NEW_CURRENT_BOARD,
+  payload: data
 });

@@ -1,4 +1,10 @@
-import { DELETE_BOARD, GET_BOARDS, NEW_BOARD, UPDATE_BOARDS } from "./actions";
+import {
+  DELETE_BOARD,
+  GET_BOARDS,
+  NEW_BOARD,
+  NEW_CURRENT_BOARD,
+  UPDATE_BOARDS,
+} from "./actions";
 
 export interface BoardState {
   all?: Array<Board>;
@@ -9,7 +15,7 @@ export interface BoardState {
 export interface Board {
   title: string;
   ownerID: string;
-  owner: { username: string }
+  owner: { username: string };
   image: ImageData;
   _id: string;
 }
@@ -38,8 +44,13 @@ export interface NewBoardAction {
 }
 
 export interface DeleteBoardAction {
-  type: typeof DELETE_BOARD,
-  payload: Board
+  type: typeof DELETE_BOARD;
+  payload: Board;
+}
+
+export interface NewCurrentBoardAction {
+  type: typeof NEW_CURRENT_BOARD;
+  payload: Board;
 }
 
 export interface ImageData {
@@ -56,4 +67,5 @@ export type BoardActions =
   | GetBoardAction
   | NewBoardAction
   | UpdateCurrentBoardsAction
-  | DeleteBoardAction;
+  | DeleteBoardAction
+  | NewCurrentBoardAction;
