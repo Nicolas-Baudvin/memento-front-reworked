@@ -30,7 +30,7 @@ const Header = () => {
       <nav>
         <button
           className={cx("new", { selected: selected === "nouveautes" })}
-          onClick={() => handleClickNav("nouveautes")}
+          onClick={() => handleClickNav("../nouveautes")}
         >
           Nouveautés
         </button>
@@ -39,14 +39,14 @@ const Header = () => {
           <>
             <button
               className={cx("login", { selected: selected === "connexion" })}
-              onClick={() => handleClickNav("connexion")}
+              onClick={() => handleClickNav("../connexion")}
             >
               Connexion
             </button>
 
             <button
               className={cx("signup", { selected: selected === "inscription" })}
-              onClick={() => handleClickNav("inscription")}
+              onClick={() => handleClickNav("../inscription")}
             >
               Inscription
             </button>
@@ -56,7 +56,7 @@ const Header = () => {
           <>
             <button
               className={cx("login", { selected: selected === "connexion" })}
-              onClick={() => handleClickNav("dashboard")}
+              onClick={() => handleClickNav("../dashboard")}
             >
               Dashboard
             </button>
