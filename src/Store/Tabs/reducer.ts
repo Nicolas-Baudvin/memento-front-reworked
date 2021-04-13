@@ -1,4 +1,4 @@
-import { UPDATE_BOARDS } from "./actions";
+import { NEW_CURRENT_BOARD, UPDATE_BOARDS } from "./actions";
 import { BoardActions, BoardState } from "./types";
 
 const initialState: BoardState = {};
@@ -9,6 +9,12 @@ const reducer = (state = initialState, action: BoardActions) => {
       return {
         ...state,
         all: action.payload,
+      };
+    }
+    case NEW_CURRENT_BOARD: {
+      return {
+        ...state,
+        current: action.payload,
       };
     }
     default: {
