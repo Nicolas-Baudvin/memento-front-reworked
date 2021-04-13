@@ -33,10 +33,10 @@ const App = () => {
             {token ? <Redirect to="/dashboard" /> : <Signup />}
           </Route>
           <Route exact path="/dashboard">
-            <Dashboard />
+            {token ? <Dashboard /> : <Redirect to="/connexion" />}
           </Route>
           <Route exact path="/tableaux/:tabTitle">
-            <CurrentBoard />
+            {token ? <CurrentBoard /> : <Redirect to="/connexion" />}
           </Route>
         </Switch>
         <Popup />
