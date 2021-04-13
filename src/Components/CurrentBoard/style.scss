@@ -1,0 +1,10 @@
+.currentboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    div {
+        color: white;
+        margin-top: 5rem;
+    }
+}
