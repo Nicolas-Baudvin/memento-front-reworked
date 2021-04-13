@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { RootState } from "../../Store/reducer";
 import { getBoards, newCurrentBoard } from "../../Store/Tabs/actions";
+import { logout } from "../../Store/UserData/actions";
+import './style.scss';
 
 const CurrentBoard = () => {
   const params: { tabTitle: string } = useParams();
   const history = useHistory();
-  const { all } = useSelector((state: RootState) => state.boards);
+  const { all, current } = useSelector((state: RootState) => state.boards);
   const { token } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
@@ -20,13 +22,24 @@ const CurrentBoard = () => {
     } else {
       if (token) {
         dispatch(getBoards());
-      }
-      else {
-          history.push("/");
+      } else {
+        dispatch(logout());
+        history.push("/");
       }
     }
   }, [all, params]);
-  return <div className="currentboard"></div>;
+  return (
+    <div className="currentboard">
+      {!current && (
+        <>
+          <div className="currentboard-error">
+            Vous ne possédez pas de tableau avec ce nom
+          </div>
+          <button onClick={() => history.push("../dashboard")} className="button">Dashboard</button>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default CurrentBoard;
