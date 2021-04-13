@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { RootState } from "../../../Store/reducer";
 
 interface AllBoardsProps {
@@ -7,12 +8,21 @@ interface AllBoardsProps {
 
 const AllBoards = ({ handleClickDelete }: AllBoardsProps) => {
   const { all } = useSelector((state: RootState) => state.boards);
+  const history = useHistory();
+
+  const handleClickBoard = (title: string) => {
+    history.push(`/tableaux/${title}`);
+  };
 
   return (
     <div className="dashboard-boards">
       {all &&
         all.map((board, i) => (
-          <div key={i} className="dashboard-boards__item">
+          <div
+            onClick={() => handleClickBoard(board.title)}
+            key={i}
+            className="dashboard-boards__item"
+          >
             <div className="dashboard-boards__item--container">
               <img
                 className="delete"
