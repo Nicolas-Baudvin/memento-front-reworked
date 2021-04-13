@@ -13,6 +13,7 @@ import Popup from "../Popup";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Store/reducer";
 import Dashboard from "../Dashboard";
+import CurrentBoard from "../CurrentBoard";
 
 const App = () => {
   const { token } = useSelector((state: RootState) => state.user);
@@ -33,6 +34,9 @@ const App = () => {
           </Route>
           <Route exact path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route exact path="/tableaux/:tabTitle">
+            <CurrentBoard />
           </Route>
         </Switch>
         <Popup />
