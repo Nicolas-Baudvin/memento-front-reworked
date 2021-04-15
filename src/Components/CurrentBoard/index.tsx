@@ -4,7 +4,9 @@ import { useHistory, useParams } from "react-router";
 import { RootState } from "../../Store/reducer";
 import { getBoards, newCurrentBoard } from "../../Store/Tabs/actions";
 import { logout } from "../../Store/UserData/actions";
-import './style.scss';
+import Board from "./Board";
+import NoBoardAvailable from "./NoBoardAvailable";
+import "./style.scss";
 
 const CurrentBoard = () => {
   const params: { tabTitle: string } = useParams();
@@ -30,14 +32,8 @@ const CurrentBoard = () => {
   }, [all, params]);
   return (
     <div className="currentboard">
-      {!current && (
-        <>
-          <div className="currentboard-error">
-            Vous ne possédez pas de tableau avec ce nom
-          </div>
-          <button onClick={() => history.push("../dashboard")} className="button">Dashboard</button>
-        </>
-      )}
+      {!current && <NoBoardAvailable />}
+      {current && <Board />}
     </div>
   );
 };
