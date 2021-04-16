@@ -2,7 +2,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(#000000, .7);
+    background-color: rgba(#101010, .8);
 
     .logo {
         display: flex;
@@ -12,6 +12,7 @@ header {
         h1 {
             color: #fff;
             font-weight: 500;
+            transition: .2s ease-in-out;
         }
         img {
             background-color: rgba(255,255,255, .1);
@@ -22,6 +23,10 @@ header {
         &:hover {
             img {
                 background-color: rgba(226, 226, 226, 0.1);
+            }
+
+            h1 {
+                color: #5D55FA;
             }
         }
     }
