@@ -11,7 +11,7 @@ import { Board } from "../../Store/Tabs/types";
 
 const title = "Êtes vous sûre ?";
 const content =
-  "Cette action est définitive et aucun retour en arrière est possible.";
+  "Cette action est définitive et aucun retour en arrière n'est possible.";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
