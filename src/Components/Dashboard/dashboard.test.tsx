@@ -2,8 +2,9 @@ import { mount } from "enzyme";
 import { useSelector as useSelectorMock } from "react-redux";
 import { useState as useStateMock } from "react";
 import Dashboard from ".";
-import { getBoards } from "../../Store/Tabs/actions";
+import { deleteBoard, getBoards } from "../../Store/Tabs/actions";
 import { Board } from "../../Store/Tabs/types";
+import Modale from "../Modale";
 
 const mockBoardData: Board = {
   title: "title",
@@ -54,12 +55,45 @@ describe("<Dashboard />", () => {
     expect(mockDispatch).toHaveBeenCalledWith(getBoards());
   });
 
-  it("should open the modale", () => {
+  it("should call setState 3 times when opening modale", () => {
     const wrapper = mount(<Dashboard />);
     const deleteButton = wrapper.find(".delete");
     deleteButton.simulate("click", mockBoardData);
     expect(setState).toHaveBeenCalledTimes(2);
     expect(setState).toHaveBeenCalledWith(mockBoardData);
     expect(setState).toHaveBeenCalledWith(true);
+  });
+
+  it("should call setState 3 times when closing modale", () => {
+    (useStateMock as jest.Mock).mockImplementation((init) => [true, setState]);
+    const wrapper = mount(<Dashboard />);
+    wrapper.find(".delete").simulate("click", mockBoardData);
+    wrapper.find(".modale-back").simulate("click");
+    expect(setState).toHaveBeenCalledTimes(3);
+    expect(setState).toHaveBeenCalledWith(mockBoardData);
+    expect(setState).toHaveBeenCalledWith(false);
+  });
+
+  it("should call handleClickNextButton on confirmation", () => {
+    const nextButton = jest.fn();
+    (useStateMock as jest.Mock).mockImplementation((init) => [true, setState]);
+    const wrapper = mount(
+      <Modale
+        content="test"
+        title="test"
+        handleClickBackButton={jest.fn()}
+        handleClickNextButton={nextButton}
+        setVisible={setState}
+      />
+    );
+    wrapper.find(".modale-confirm").simulate("click");
+    expect(nextButton).toHaveBeenCalledTimes(1);
+  });
+
+  it("should push the board title to history", () => {
+    const expectedTitle = mockBoardData.title;
+    const wrapper = mount(<Dashboard />);
+    wrapper.find(".dashboard-boards__item").simulate("click");
+    expect(mockHistoryPush).toHaveBeenCalledWith(`/tableaux/${expectedTitle}`);
   });
 });
