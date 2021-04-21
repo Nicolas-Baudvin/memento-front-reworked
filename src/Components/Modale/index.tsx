@@ -1,11 +1,12 @@
+import { useState } from "react";
 import "./style.scss";
 
 interface ModaleProps {
   handleClickNextButton: React.MouseEventHandler<HTMLButtonElement>;
   handleClickBackButton: React.MouseEventHandler<HTMLButtonElement>;
+  handleClickBlurModale: React.MouseEventHandler<HTMLDivElement>;
   title: string;
   content: string;
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Modale = ({
@@ -13,10 +14,8 @@ const Modale = ({
   handleClickNextButton,
   content,
   handleClickBackButton,
-  setVisible,
+  handleClickBlurModale,
 }: ModaleProps) => {
-  const handleClickBlurModale = (e: any) =>
-    e.target.classList.contains("modale") && setVisible(false);
 
   return (
     <div onClick={handleClickBlurModale} className="modale">
