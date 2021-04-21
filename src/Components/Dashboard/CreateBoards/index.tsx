@@ -1,56 +1,53 @@
 import cx from "classnames";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { throwNewError } from "../../../Store/Message/actions";
 import { newBoard } from "../../../Store/Tabs/actions";
 import { ImageData } from "../../../Store/Tabs/types";
+import { newImageSelected, newIsShowState, newTitle } from "../utils/actions";
+import { DashBoardUseReducerActions, LocalState } from "../utils/types";
 import Pictures from "./Pictures";
 
 interface CreateBoardsProps {
-  isShow: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  localDispatch: React.Dispatch<DashBoardUseReducerActions>;
+  state: LocalState;
 }
 
-const CreateBoards: React.FC<CreateBoardsProps> = ({ isShow, setShow }) => {
+const CreateBoards: React.FC<CreateBoardsProps> = ({ state, localDispatch }) => {
   const dispatch = useDispatch();
-
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState<ImageData>({
-    url: "",
-    alt: "",
-  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length >= 20) return;
-    setTitle(e.target.value);
+    localDispatch(newTitle(e.target.value));
   };
 
-  const handleClickImage = (imageData: ImageData) => setImage(imageData);
+  const handleClickImage = (imageData: ImageData) => localDispatch(newImageSelected(imageData));
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (image.url && title) dispatch(newBoard({ image, title }));
+    if (state.image.url && state.title) dispatch(newBoard({ image: state.image, title: state.title }));
 
-    if (!image.url) dispatch(throwNewError("Veuillez selectionner une image"));
+    if (!state.image.url) dispatch(throwNewError("Veuillez selectionner une image"));
+    else if (!state.title) dispatch(throwNewError("Veuillez préciser le nom du tableau"));
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className={cx("dashboard-form", { "dashboard-form-show": isShow })}
+      className={cx("dashboard-form", { "dashboard-form-show": state.isShow })}
     >
       <input
         onChange={handleChange}
-        value={title}
+        value={state.title}
         type="text"
         placeholder="Titre du tableau"
+        className="dashboard-form-input"
       />
       <Pictures handleClickImage={handleClickImage} />
 
       <button type="submit" className="dashboard-form-button purple">Créer</button>
       <button
         type="button"
-        onClick={() => setShow(!isShow)}
+        onClick={() => localDispatch(newIsShowState(!state.isShow))}
         className="dashboard-form-button red"
       >
         Retour

@@ -221,7 +221,8 @@
         align-items: center;
 
         &-add {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(92, 89, 96, .5);
+            background: linear-gradient(139deg, rgba(92, 89, 96, .5) 0%, rgba(31, 34, 32, .5) 100%);
             cursor: pointer;
             transition: 0.2s ease-in-out;
             border-radius: 15px;

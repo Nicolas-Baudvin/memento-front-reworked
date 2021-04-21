@@ -1,17 +1,22 @@
-import { useState } from "react";
 import CreateBoards from "../CreateBoards";
 import cx from "classnames";
+import { DashBoardUseReducerActions, LocalState } from "../utils/types";
+import { newIsShowState } from "../utils/actions";
 
-const CreateButton = () => {
-      const [isShow, setShow] = useState(false);
+interface Props {
+  localDispatch: React.Dispatch<DashBoardUseReducerActions>;
+  state: LocalState
+}
 
-      const handleClickCreateBoard = () => setShow(!isShow);
+const CreateButton = ({ localDispatch, state }: Props) => {
+
+      const handleClickCreateBoard = () => localDispatch(newIsShowState(!state.isShow));
     return (
       <div className="dashboard-create">
         <div
           onClick={handleClickCreateBoard}
           className={cx("dashboard-create-add", {
-            "dashboard-create-hide": isShow,
+            "dashboard-create-hide": state.isShow,
           })}
         >
           <img
@@ -21,7 +26,7 @@ const CreateButton = () => {
           />
           <p>Ajouter</p>
         </div>
-        <CreateBoards setShow={setShow} isShow={isShow} />
+        <CreateBoards state={state} localDispatch={localDispatch} />
       </div>
     );
 };

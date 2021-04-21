@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { RootState } from "../../Store/reducer";
 import { deleteBoard, getBoards } from "../../Store/Tabs/actions";
-import "./style.scss";
 import AllBoards from "./AllBoards";
 import CreateButton from "./CreateButton";
 import Modale from "../Modale";
 import { Board } from "../../Store/Tabs/types";
+import {
+  initialState,
+  newBoardSelected,
+  newVisibleState,
+  reducer,
+} from "./utils";
+import "./style.scss";
 
 const title = "Êtes vous sûre ?";
 const content =
@@ -16,25 +22,29 @@ const content =
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state: RootState) => state.user);
+  const { all } = useSelector((state: RootState) => state.boards);
   const history = useHistory();
-  const [isVisible, setVisible] = useState(false);
-  const [boardSelected, setBoardSelected] = useState<any>({});
+  const [state, localDispatch] = useReducer(reducer, initialState);
 
-  const handleClickBackButton = () => setVisible(false);
+  const handleClickBackButton = () => localDispatch(newVisibleState(false));
 
   const handleClickNextButton = () => {
-    setVisible(false);
-    dispatch(deleteBoard(boardSelected));
+    localDispatch(newVisibleState(false));
+    dispatch(deleteBoard(state.selectedBoard));
   };
 
   const handleClickDelete = (board: Board) => {
-    setVisible(true);
-    setBoardSelected(board);
+    localDispatch(newVisibleState(true));
+    localDispatch(newBoardSelected(board));
   };
+
+  const handleClickBlurModale = (e: any) =>
+    e.target.classList.contains("modale") &&
+    localDispatch(newVisibleState(false));
 
   useEffect(() => {
     if (!token) history.push("/");
-    else dispatch(getBoards());
+    else if (!all) dispatch(getBoards());
   }, [token]);
 
   return (
@@ -43,16 +53,16 @@ const Dashboard = () => {
         <h2>Mes tableaux</h2>
         <div className="dashboard-container">
           <AllBoards handleClickDelete={handleClickDelete} />
-          <CreateButton />
+          <CreateButton state={state} localDispatch={localDispatch} />
         </div>
       </div>
-      {isVisible && (
+      {state.isVisible && (
         <Modale
           title={title}
           content={content}
           handleClickBackButton={handleClickBackButton}
           handleClickNextButton={handleClickNextButton}
-          setVisible={setVisible}
+          handleClickBlurModale={handleClickBlurModale}
         />
       )}
     </div>

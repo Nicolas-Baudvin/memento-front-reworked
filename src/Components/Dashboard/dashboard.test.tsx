@@ -1,10 +1,20 @@
 import { mount } from "enzyme";
 import { useSelector as useSelectorMock } from "react-redux";
-import { useState as useStateMock } from "react";
+import React, { useReducer, useState as useStateMock } from "react";
 import Dashboard from ".";
-import { deleteBoard, getBoards } from "../../Store/Tabs/actions";
+import {
+  deleteBoard,
+  getBoards,
+  GET_BOARDS,
+  newBoard,
+  NEW_BOARD,
+} from "../../Store/Tabs/actions";
 import { Board } from "../../Store/Tabs/types";
 import Modale from "../Modale";
+import { throwNewError } from "../../Store/Message/actions";
+import { initialState, reducer } from "./utils";
+import { renderHook } from "@testing-library/react-hooks";
+import { act } from "react-dom/test-utils";
 
 const mockBoardData: Board = {
   title: "title",
@@ -30,10 +40,11 @@ jest.mock("react-redux", () => ({
   useDispatch: () => mockDispatch,
 }));
 
-jest.mock("react", () => ({
-  ...jest.requireActual("react"),
-  useState: jest.fn(),
-}));
+const url =
+  "https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
+const alt = "space";
+const image = { url, alt };
+const title = "test2";
 
 describe("<Dashboard />", () => {
   beforeEach(() => {
@@ -42,7 +53,6 @@ describe("<Dashboard />", () => {
       all: [mockBoardData],
       current: mockBoardData,
     }));
-    (useStateMock as jest.Mock).mockImplementation((init) => [false, setState]);
   });
 
   it("should render nicely", () => {
@@ -51,49 +61,43 @@ describe("<Dashboard />", () => {
   });
 
   it("should dispatch getBoards() on rendering", () => {
+    (useSelectorMock as jest.Mock).mockImplementation(() => ({
+      token: "string",
+    }));
     const wrapper = mount(<Dashboard />);
     expect(mockDispatch).toHaveBeenCalledWith(getBoards());
   });
 
-  it("should call setState 3 times when opening modale", () => {
+  it("should open the modale", () => {
     const wrapper = mount(<Dashboard />);
     const deleteButton = wrapper.find(".delete");
     deleteButton.simulate("click", mockBoardData);
-    expect(setState).toHaveBeenCalledTimes(2);
-    expect(setState).toHaveBeenCalledWith(mockBoardData);
-    expect(setState).toHaveBeenCalledWith(true);
+    expect(wrapper.find(".modale")).toHaveLength(1);
   });
 
-  it("should call setState 3 times when closing modale", () => {
-    (useStateMock as jest.Mock).mockImplementation((init) => [true, setState]);
+  it("should close the modale", () => {
     const wrapper = mount(<Dashboard />);
     wrapper.find(".delete").simulate("click", mockBoardData);
     wrapper.find(".modale-back").simulate("click");
-    expect(setState).toHaveBeenCalledTimes(3);
-    expect(setState).toHaveBeenCalledWith(mockBoardData);
-    expect(setState).toHaveBeenCalledWith(false);
-  });
-
-  it("should call handleClickNextButton on confirmation", () => {
-    const nextButton = jest.fn();
-    (useStateMock as jest.Mock).mockImplementation((init) => [true, setState]);
-    const wrapper = mount(
-      <Modale
-        content="test"
-        title="test"
-        handleClickBackButton={jest.fn()}
-        handleClickNextButton={nextButton}
-        setVisible={setState}
-      />
-    );
-    wrapper.find(".modale-confirm").simulate("click");
-    expect(nextButton).toHaveBeenCalledTimes(1);
+    expect(wrapper.find(".modale")).toHaveLength(0);
   });
 
   it("should push the board title to history", () => {
     const expectedTitle = mockBoardData.title;
     const wrapper = mount(<Dashboard />);
-    wrapper.find(".dashboard-boards__item").simulate("click");
+    wrapper.find(".dashboard-boards__item--container").simulate("click");
     expect(mockHistoryPush).toHaveBeenCalledWith(`/tableaux/${expectedTitle}`);
+  });
+
+  it("should return an error 'no image' when adding a new board", () => {
+    const wrapper = mount(<Dashboard />);
+    wrapper.find(".dashboard-create").simulate("click");
+    const boardForm = wrapper.find(".dashboard-form");
+    const input = wrapper.find(".dashboard-form-input");
+    input.simulate("change", { target: { value: "test2" } });
+    boardForm.simulate("submit");
+    expect(mockDispatch).toHaveBeenCalledWith(
+      throwNewError("Veuillez selectionner une image")
+    );
   });
 });

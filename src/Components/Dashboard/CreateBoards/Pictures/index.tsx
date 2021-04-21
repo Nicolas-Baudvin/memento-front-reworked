@@ -11,7 +11,7 @@ const Pictures: React.FC<PicturesProps> = ({ handleClickImage }) => {
         <button
           type="button"
           onClick={() => handleClickImage(picture)}
-          className="dashboard-form-pics-btn"
+          className={`dashboard-form-pics-btn-${i}`}
           key={i}
         >
           <img src={picture.url} alt={picture.alt} />
