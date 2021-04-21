@@ -12,7 +12,6 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
   switch (action.type) {
     case DELETE_BOARD: {
       const { token, _id } = store.getState().user;
-
       try {
         const res = await axios({
           url: process.env.REACT_APP_DELETE_BOARD,
@@ -30,8 +29,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
 
         next(action);
       } catch (e) {
-        console.log(e);
-        if (e?.response?.status === 403) store.dispatch(logout());
+        // if (e?.response?.status === 403) store.dispatch(logout());
         if (e?.response?.data?.error)
           store.dispatch(throwNewError(e.response.data.error));
         else if (e?.response?.data?.errors)
@@ -46,7 +44,6 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
     case NEW_BOARD: {
       const { token, _id, email, username } = store.getState().user;
       const { image, title } = action.payload;
-      console.log(username);
       try {
         const res = await axios({
           url: process.env.REACT_APP_CREATE_BOARDS,
@@ -62,7 +59,6 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(res.data);
         store.dispatch(updateBoards(res.data.boards));
         next(action);
       } catch (e) {
