@@ -18,23 +18,25 @@ const AllBoards = ({ handleClickDelete }: AllBoardsProps) => {
     <div className="dashboard-boards">
       {all &&
         all.map((board, i) => (
-          <div
-            onClick={() => handleClickBoard(board.title)}
-            key={i}
-            className="dashboard-boards__item"
-          >
-            <div className="dashboard-boards__item--container">
-              <img
-                className="delete"
-                src={`${process.env.PUBLIC_URL}/img/remove.svg`}
-                width="20px"
-                height="20px"
-                alt="supprimer"
-                onClick={() => handleClickDelete(board)}
-              />
+          <div key={i} className="dashboard-boards__item">
+            <img
+              className="delete"
+              src={`${process.env.PUBLIC_URL}/img/remove.svg`}
+              width="20px"
+              height="20px"
+              alt="supprimer"
+              onClick={() => handleClickDelete(board)}
+            />
+            <div
+              onClick={() => handleClickBoard(board.title)}
+              className="dashboard-boards__item--container"
+            >
               <img src={board.image.url} alt={board.image.alt} />
             </div>
-            <div className="dashboard-boards__item--texts">
+            <div
+              onClick={() => handleClickBoard(board.title)}
+              className="dashboard-boards__item--texts"
+            >
               <p>{board.owner.username.substring(0, 1)}</p>
               <div>
                 <h3> {board.title} </h3>
