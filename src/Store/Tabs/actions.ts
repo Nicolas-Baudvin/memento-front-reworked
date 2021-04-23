@@ -1,10 +1,16 @@
-import { Board, BoardActions, NewBoardPayload } from "./types";
+import { Board, BoardActions, List, NewBoardPayload } from "./types";
 
 export const NEW_BOARD = "board/NEW_BOARD";
 export const GET_BOARDS = "board/GET_BOARD";
 export const UPDATE_BOARDS = "board/UPDATE_BOARDS";
 export const DELETE_BOARD = "board/DELETE_BOARD";
 export const NEW_CURRENT_BOARD = "board/NEW_CURRENT_BOARD";
+export const NEW_LIST = "board/NEW_LIST";
+
+export const newList = (list: List): BoardActions => ({
+  type: NEW_LIST,
+  payload: list
+});
 
 export const deleteBoard = (board: Board): BoardActions => ({
   type: DELETE_BOARD,

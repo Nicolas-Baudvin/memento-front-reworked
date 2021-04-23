@@ -3,6 +3,7 @@ import {
   GET_BOARDS,
   NEW_BOARD,
   NEW_CURRENT_BOARD,
+  NEW_LIST,
   UPDATE_BOARDS,
 } from "./actions";
 
@@ -18,6 +19,7 @@ export interface Board {
   owner: { username: string };
   image: ImageData;
   _id: string;
+  lists?: Array<List>
 }
 
 export interface Owner {
@@ -25,13 +27,33 @@ export interface Owner {
   _id: string;
 }
 
+export interface List {
+  boardID?: string;
+  title: string;
+  color: string;
+  tasks?: Array<Tasks>
+}
+
+export interface Tasks {
+  desc: string;
+  date: Date;
+  author: string;
+  importance: boolean;
+}
+
 /**
  * Actions
  */
 
+
 export interface UpdateCurrentBoardsAction {
   type: typeof UPDATE_BOARDS;
   payload: Array<Board>;
+}
+
+export interface NewListAction {
+  type: typeof NEW_LIST;
+  payload: List;
 }
 
 export interface GetBoardAction {
@@ -68,4 +90,5 @@ export type BoardActions =
   | NewBoardAction
   | UpdateCurrentBoardsAction
   | DeleteBoardAction
-  | NewCurrentBoardAction;
+  | NewCurrentBoardAction
+  | NewListAction;
