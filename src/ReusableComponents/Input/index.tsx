@@ -2,7 +2,7 @@ import cx from "classnames";
 import "./style.scss";
 
 interface InputProps {
-  label: string;
+  label?: string;
   placeholder: string;
   htmlFor: string;
   tooltip?: string;
@@ -13,7 +13,6 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({
-  label,
   placeholder,
   htmlFor,
   tooltip,
@@ -21,10 +20,11 @@ const Input: React.FC<InputProps> = ({
   error,
   onChange,
   value,
+  label,
 }) => {
   return (
     <div className="input">
-      <label htmlFor={htmlFor}>{label}</label>
+      { label && <label htmlFor={htmlFor}>{label}</label>}
       <input onChange={onChange} value={value} type={type} placeholder={placeholder} />
       <p className={cx("input-tooltip", { "input-error": Boolean(error) })}>
         {error || tooltip}
