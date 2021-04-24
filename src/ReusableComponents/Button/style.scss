@@ -1,14 +1,14 @@
 .button {
-    background-color: #5D55FA;
+    background-color: #5d55fa;
     border: none;
-    padding: .6em 1em;
+    padding: 0.6em 1em;
     color: #fff;
     font-weight: 500;
     font-size: 19px;
     width: 285px;
     border-radius: 5px;
     margin: 2em 0;
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
     cursor: pointer;
 
     &:hover {
@@ -38,4 +38,27 @@
     position: absolute;
     right: 1em;
     font-size: 1.3em;
+}
+
+.button-icon {
+    position: absolute;
+    right: 1em;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    font-size: 1.8rem;
+    margin: -0.1rem 0 0 0;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    svg {
+        margin-top: .2em;
+    }
+
+    &:hover {
+        box-shadow: 0 2px 4px rgba(0,0,0,.3);
+    }
 }
