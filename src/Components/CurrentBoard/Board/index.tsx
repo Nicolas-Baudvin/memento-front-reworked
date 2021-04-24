@@ -3,11 +3,9 @@ import { RootState } from "../../../Store/reducer";
 import BoardButtons from "./BoardMenu/BoardButton";
 
 import BoardMenu from "./BoardMenu";
-import reducer, {
-  initialState,
-} from "../utils/reducer";
+import reducer, { initialState } from "../utils/reducer";
 import { useReducer } from "react";
-import CreateList from "./CreateList";
+import Lists from "./Lists";
 
 const Board = () => {
   const { current } = useSelector((state: RootState) => state.boards);
@@ -23,9 +21,7 @@ const Board = () => {
         <BoardButtons />
       </div>
       <div className="currentboard-content">
-        <div className="currentboard-content-lists">
-          <CreateList localDispatch={localDispatch} state={state} />
-        </div>
+        <Lists localDispatch={localDispatch} state={state} />
       </div>
     </div>
   );

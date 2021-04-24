@@ -11,11 +11,42 @@
         width: 100%;
         &-lists {
             display: flex;
-            flex-direction: row;
+            overflow-x: auto;
             align-items: center;
             width: 80%;
             margin: 2em auto;
             padding: 2em;
+
+            &__item {
+                margin: 0 3rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border-radius: 5px;
+                overflow: hidden;
+                width: 280px;
+                cursor: pointer;
+
+                h2 {
+                    position: relative;
+                    color: #fff;
+                    padding: 1em;
+                    margin: 0;
+                    width: 100%;
+                    text-align: center;
+                }
+
+                &-tasks {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    min-height: 40px;
+                    background: rgb(92, 89, 96);
+                    background: linear-gradient(139deg, rgba(92, 89, 96, 0.7) 0%, rgba(31, 34, 32, 0.7) 100%);
+                    width: 100%;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) inset;
+                }
+            }
 
             &-add {
                 position: relative;
@@ -87,7 +118,7 @@
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    margin: .5em;
+                    margin: 0.5em;
                     cursor: pointer;
                     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
                     transition: 0.2s ease-in-out;
