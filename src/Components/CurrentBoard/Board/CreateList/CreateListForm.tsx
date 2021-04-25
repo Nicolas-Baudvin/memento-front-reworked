@@ -90,8 +90,7 @@ const CreateListForm: React.FC<CreateListFormProps> = ({
         Créer
       </button>
       <p className="currentboard-content-lists-add-error">
-        {" "}
-        {state.createListError}{" "}
+        {state.createListError}
       </p>
     </form>
   );
