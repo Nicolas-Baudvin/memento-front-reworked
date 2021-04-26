@@ -1,6 +1,7 @@
 import cx from "classnames";
-import { useState } from "react";
+import { useReducer } from "react";
 import { List } from "../../../../Store/Tabs/types";
+import reducer, { initialState, newInputValue } from "./reducer";
 
 interface ListMenuProps {
   isShowMenu: boolean;
@@ -8,10 +9,13 @@ interface ListMenuProps {
 }
 
 const ListMenu = ({ isShowMenu, list }: ListMenuProps) => {
-  const [value, setValue] = useState(list.title);
-  
+  const [state, localDispatch] = useReducer(reducer, initialState);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    if (e.target.value.length >= 20) {
+      return;
+    }
+    localDispatch(newInputValue(e.target.value));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,13 +33,19 @@ const ListMenu = ({ isShowMenu, list }: ListMenuProps) => {
           className="currentboard-content-lists__item-menu-input"
           type="text"
           placeholder="Nouveau nom"
-          value={value}
+          value={state.value}
           onChange={handleChange}
         />
-        <button type="submit" className="currentboard-content-lists__item-menu-input-submit">
+        <button
+          type="submit"
+          className="currentboard-content-lists__item-menu-input-submit"
+        >
           Confirmer
         </button>
       </form>
+      <button className="currentboard-content-lists__item-menu-button">
+        Changer la couleur
+      </button>
       <button className="currentboard-content-lists__item-menu-button">
         Supprimer
       </button>
