@@ -1,5 +1,8 @@
+import List from "../../Components/CurrentBoard/Board/Lists/List";
 import {
+  CHANGE_LIST_NAME,
   DELETE_BOARD,
+  DELETE_LIST,
   GET_BOARDS,
   NEW_BOARD,
   NEW_CURRENT_BOARD,
@@ -19,7 +22,7 @@ export interface Board {
   owner: { username: string };
   image: ImageData;
   _id: string;
-  lists?: Array<List>
+  lists?: Array<List>;
 }
 
 export interface Owner {
@@ -31,7 +34,7 @@ export interface List {
   boardID?: string;
   title: string;
   color: string;
-  tasks?: Array<Tasks>
+  tasks?: Array<Tasks>;
 }
 
 export interface Tasks {
@@ -44,7 +47,6 @@ export interface Tasks {
 /**
  * Actions
  */
-
 
 export interface UpdateCurrentBoardsAction {
   type: typeof UPDATE_BOARDS;
@@ -75,6 +77,16 @@ export interface NewCurrentBoardAction {
   payload: Board;
 }
 
+export interface DeleteListAction {
+  type: typeof DELETE_LIST;
+  payload: List;
+}
+
+export interface ChangeListNameAction {
+  type: typeof CHANGE_LIST_NAME;
+  payload: { list: List; newName: string };
+}
+
 export interface ImageData {
   url: string;
   alt: string;
@@ -91,4 +103,6 @@ export type BoardActions =
   | UpdateCurrentBoardsAction
   | DeleteBoardAction
   | NewCurrentBoardAction
-  | NewListAction;
+  | NewListAction
+  | DeleteListAction
+  | ChangeListNameAction;
