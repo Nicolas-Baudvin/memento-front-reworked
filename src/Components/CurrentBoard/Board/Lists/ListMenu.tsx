@@ -1,14 +1,18 @@
 import cx from "classnames";
 import { useReducer } from "react";
+import { useDispatch } from "react-redux";
+import { deleteList } from "../../../../Store/Tabs/actions";
 import { List } from "../../../../Store/Tabs/types";
 import reducer, { initialState, newInputValue } from "./reducer";
 
 interface ListMenuProps {
   isShowMenu: boolean;
   list: List;
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const ListMenu = ({ isShowMenu, list }: ListMenuProps) => {
+const ListMenu = ({ isShowMenu, list, setShowMenu }: ListMenuProps) => {
+  const dispatch = useDispatch();
   const [state, localDispatch] = useReducer(reducer, initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +24,11 @@ const ListMenu = ({ isShowMenu, list }: ListMenuProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const handleClickDeleteList = () => {
+    dispatch(deleteList(list));
+    setShowMenu(false);
   };
 
   return (
@@ -43,10 +52,10 @@ const ListMenu = ({ isShowMenu, list }: ListMenuProps) => {
           Confirmer
         </button>
       </form>
-      <button className="currentboard-content-lists__item-menu-button">
-        Changer la couleur
-      </button>
-      <button className="currentboard-content-lists__item-menu-button">
+      <button
+        onClick={() => handleClickDeleteList()}
+        className="currentboard-content-lists__item-menu-button"
+      >
         Supprimer
       </button>
     </div>
