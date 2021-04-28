@@ -19,7 +19,7 @@ const List = ({ list, index }: ListProps) => {
           <button onClick={handleClickMenuButton} className="button-icon">
             <MdMoreVert />
           </button>
-          <ListMenu isShowMenu={isShowMenu} list={list} />
+          <ListMenu isShowMenu={isShowMenu} list={list} setShowMenu={setShowMenu} />
         </h2>
         <div className="currentboard-content-lists__item-tasks"></div>
       </div>
