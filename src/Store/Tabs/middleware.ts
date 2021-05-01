@@ -12,13 +12,20 @@ import {
   NEW_BOARD,
   NEW_LIST,
   updateBoards,
+  UPDATE_BOARDS_LISTS,
 } from "./actions";
-import { BoardActions, List } from "./types";
+import { BoardActions, ListPayload } from "./types";
 
 const middleware: Middleware<{}, RootState> = (store) => (next) => async (
   action: BoardActions
 ) => {
   switch (action.type) {
+    case UPDATE_BOARDS_LISTS: {
+      const listsUpdated = action.payload;
+      // TODO: fetch new lists
+      next(action);
+      break;
+    }
     case CHANGE_LIST_NAME: {
       const { token, _id } = store.getState().user;
       const { current } = store.getState().boards;
@@ -57,7 +64,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
     case DELETE_LIST: {
       const { token, _id } = store.getState().user;
       const { current } = store.getState().boards;
-      const list: List = action.payload;
+      const list: ListPayload = action.payload;
       try {
         const res = await axios({
           method: "delete",
