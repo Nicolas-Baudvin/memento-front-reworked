@@ -72,10 +72,11 @@ const CreateListForm: React.FC<CreateListFormProps> = ({
       />
       <h2>Couleur de la liste</h2>
       <div className="currentboard-content-lists-add-colors">
-        {Object.keys(colors).map((color) => (
+        {Object.keys(colors).map((color, i) => (
           <div
             onClick={() => handleClickColor(color)}
             className={`currentboard-content-lists-add-colors__${color} coloors`}
+            key={i}
           ></div>
         ))}
         <div
