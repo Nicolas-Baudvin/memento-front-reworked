@@ -6,7 +6,7 @@ import ListMenu from "./ListMenu";
 
 interface ListProps {
   list: ListType;
-  index: number;
+  index: string;
 }
 
 const List = ({ list, index }: ListProps) => {
@@ -14,21 +14,29 @@ const List = ({ list, index }: ListProps) => {
   const handleClickMenuButton = () => setShowMenu(!isShowMenu);
   return (
     <Draggable key={index} index={list.order} draggableId={list._id}>
-      { (provided) => <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} key={index} className="currentboard-content-lists__item">
-        <h2 style={{ backgroundColor: list.color }}>
-          {" "}
-          {list.title}{" "}
-          <button onClick={handleClickMenuButton} className="button-icon">
-            <MdMoreVert />
-          </button>
-          <ListMenu
-            isShowMenu={isShowMenu}
-            list={list}
-            setShowMenu={setShowMenu}
-          />
-        </h2>
-        <div className="currentboard-content-lists__item-tasks"></div>
-      </div>}
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          data-order={list.order}
+          key={index}
+          className="currentboard-content-lists__item"
+        >
+          <h2 style={{ backgroundColor: list.color }}>
+            {list.title}
+            <button onClick={handleClickMenuButton} className="button-icon">
+              <MdMoreVert />
+            </button>
+            <ListMenu
+              isShowMenu={isShowMenu}
+              list={list}
+              setShowMenu={setShowMenu}
+            />
+          </h2>
+          <div className="currentboard-content-lists__item-tasks"></div>
+        </div>
+      )}
     </Draggable>
   );
 };
