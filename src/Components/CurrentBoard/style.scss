@@ -26,7 +26,6 @@
                 width: 280px;
                 cursor: pointer;
                 max-height: 600px;
-                transition: .2s ease-in-out;
 
                 &:hover {
                     box-shadow: 0 0 0 3px #5d55fa;
@@ -101,9 +100,9 @@
                 h2 {
                     position: relative;
                     color: #fff;
-                    padding: 1em;
+                    padding: 1em 0;
                     margin: 0;
-                    width: 100%;
+                    width: 280px;
                     text-align: center;
                 }
 
