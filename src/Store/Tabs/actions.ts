@@ -20,7 +20,7 @@ export const changeListName = (list: List, newName: string): BoardActions => ({
   payload: { list, newName },
 });
 
-export const deleteList = (list: ListPayload): BoardActions => ({
+export const deleteList = (list: List): BoardActions => ({
   type: DELETE_LIST,
   payload: list,
 });

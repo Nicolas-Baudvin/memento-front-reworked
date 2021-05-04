@@ -14,7 +14,7 @@ import {
   updateBoards,
   UPDATE_BOARDS_LISTS,
 } from "./actions";
-import { BoardActions, ListPayload } from "./types";
+import { BoardActions, List, ListPayload } from "./types";
 
 const middleware: Middleware<{}, RootState> = (store) => (next) => async (
   action: BoardActions
@@ -55,7 +55,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
     case CHANGE_LIST_NAME: {
       const { token, _id } = store.getState().user;
       const { current } = store.getState().boards;
-      const { list, newName } = action.payload;
+      const { list, newName: newTitle } = action.payload;
 
       try {
         const res = await axios({
@@ -65,14 +65,14 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
             boardID: current?._id,
             _id,
             list,
-            newName,
+            newTitle,
           },
           headers: {
             authorization: `Bearer ${token}`,
           },
         });
-        store.dispatch(updateBoards(res.data.boards));
         store.dispatch(newCurrentBoard(res.data.board));
+        store.dispatch(updateBoards(res.data.boards));
       } catch (e) {
         if (e?.response?.data?.error)
           store.dispatch(throwNewError(e.response.data.error));
@@ -90,20 +90,21 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
     case DELETE_LIST: {
       const { token, _id } = store.getState().user;
       const { current } = store.getState().boards;
-      const list: ListPayload = action.payload;
+      const list: List = action.payload;
       try {
         const res = await axios({
           method: "delete",
           url: process.env.REACT_APP_DELETE_LIST,
           data: {
             boardID: current?._id,
-            title: list.title,
+            listID: list._id,
             _id,
           },
           headers: {
             authorization: `Bearer ${token}`,
           },
         });
+        console.log(res.data);
         store.dispatch(updateBoards(res.data.boards));
         store.dispatch(newCurrentBoard(res.data.board));
         next(action);

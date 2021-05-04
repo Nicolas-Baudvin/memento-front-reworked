@@ -90,12 +90,12 @@ export interface NewCurrentBoardAction {
 
 export interface DeleteListAction {
   type: typeof DELETE_LIST;
-  payload: ListPayload;
+  payload: List;
 }
 
 export interface ChangeListNameAction {
   type: typeof CHANGE_LIST_NAME;
-  payload: { list: ListPayload; newName: string };
+  payload: { list: List; newName: string };
 }
 
 export interface ImageData {
