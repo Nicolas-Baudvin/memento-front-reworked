@@ -23,10 +23,10 @@ interface ColorChoice {
 const colors: ColorChoice = {
   red: "#ff1b1c",
   purple: "#6622cc",
-  green: "#e36410",
-  orange: "#0a8754",
-  blue: "#eec643",
-  yellow: "#0d21a1",
+  orange: "#e36410",
+  green: "#0a8754",
+  yellow: "#eec643",
+  blue: "#0d21a1",
 };
 
 const CreateListForm: React.FC<CreateListFormProps> = ({
