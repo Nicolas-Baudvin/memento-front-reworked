@@ -1,17 +1,20 @@
 import cx from "classnames";
 import { useReducer } from "react";
-import { useDispatch } from "react-redux";
-import { deleteList } from "../../../../Store/Tabs/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { changeListName, deleteList } from "../../../../Store/Tabs/actions";
 import { List } from "../../../../Store/Tabs/types";
 import reducer, { initialState, newInputValue } from "./reducer";
+import { RootState } from "../../../../Store/reducer";
 
 interface ListMenuProps {
   isShowMenu: boolean;
   list: List;
-  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ListMenu = ({ isShowMenu, list, setShowMenu }: ListMenuProps) => {
+  const { current } = useSelector((state: RootState) => state.boards);
   const dispatch = useDispatch();
   const [state, localDispatch] = useReducer(reducer, initialState);
 
@@ -24,12 +27,19 @@ const ListMenu = ({ isShowMenu, list, setShowMenu }: ListMenuProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (state.value) {
+      dispatch(changeListName(list, state.value));
+    }
   };
 
   const handleClickDeleteList = () => {
     dispatch(deleteList(list));
     setShowMenu(false);
   };
+
+  useEffect(() => {
+    if (current) localDispatch(newInputValue(current.title));
+  }, [current]);
 
   return (
     <div
