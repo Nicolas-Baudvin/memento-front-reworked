@@ -14,7 +14,7 @@ import {
   updateBoards,
   UPDATE_BOARDS_LISTS,
 } from "./actions";
-import { BoardActions, List, ListPayload } from "./types";
+import { BoardActions, List } from "./types";
 
 const middleware: Middleware<{}, RootState> = (store) => (next) => async (
   action: BoardActions
