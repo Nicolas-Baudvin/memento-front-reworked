@@ -38,7 +38,7 @@ const ListMenu = ({ isShowMenu, list, setShowMenu }: ListMenuProps) => {
   };
 
   useEffect(() => {
-    if (current) localDispatch(newInputValue(current.title));
+    if (current?.lists) localDispatch(newInputValue(list.title));
   }, [current]);
 
   return (
