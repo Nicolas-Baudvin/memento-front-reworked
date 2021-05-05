@@ -1,4 +1,4 @@
-import { ChromePicker, ColorResult } from "react-color";
+import { BlockPicker, ColorResult } from "react-color";
 import { MdClose } from "react-icons/md";
 import { CurrentboardActions, CurrentboardLocalState, newPickerColor, newPickerVisibility } from "../../utils/reducer";
 import CreateListForm from "./CreateListForm";
@@ -30,7 +30,7 @@ const CreateList: React.FC<CreateListeProps> = ({ localDispatch, state }) => {
           <div className="picker-close">
             <MdClose onClick={changePickerVisibility} />
           </div>
-          <ChromePicker
+          <BlockPicker
             className="picker"
             color={state.colorPicked}
             onChange={handleChangePicker}
