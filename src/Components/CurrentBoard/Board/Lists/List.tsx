@@ -3,6 +3,9 @@ import { MdMoreVert } from "react-icons/md";
 import { List as ListType } from "../../../../Store/Tabs/types";
 import { Draggable } from "react-beautiful-dnd";
 import ListMenu from "./ListMenu";
+import Task from "./Tasks/Task";
+import "./style.scss";
+import CreateTaskForm from "./CreateTaskForm";
 
 interface ListProps {
   list: ListType;
@@ -12,6 +15,7 @@ interface ListProps {
 const List = ({ list, index }: ListProps) => {
   const [isShowMenu, setShowMenu] = useState(false);
   const handleClickMenuButton = () => setShowMenu(!isShowMenu);
+
   return (
     <Draggable key={index} index={list.order} draggableId={list._id}>
       {(provided) => (
@@ -34,7 +38,13 @@ const List = ({ list, index }: ListProps) => {
               setShowMenu={setShowMenu}
             />
           </h2>
-          <div className="currentboard-content-lists__item-tasks"></div>
+          <div className="currentboard-content-lists__item-tasks">
+            {list.tasks &&
+              list.tasks.map((task, index) => (
+                <Task task={task} index={index} />
+              ))}
+            <CreateTaskForm list={list} />
+          </div>
         </div>
       )}
     </Draggable>
