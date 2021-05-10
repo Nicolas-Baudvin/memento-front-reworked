@@ -39,6 +39,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
         });
         store.dispatch(updateBoards(res.data.boards));
         store.dispatch(newCurrentBoard(res.data.board));
+        next(action);
       } catch (e) {
         if (e?.response?.data?.error)
           store.dispatch(throwNewError(e.response.data.error));
@@ -49,7 +50,6 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
             throwNewError("Une erreur est survenue avec le serveur.")
           );
       }
-      next(action);
       break;
     }
     case CHANGE_LIST_NAME: {
@@ -73,6 +73,7 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
         });
         store.dispatch(newCurrentBoard(res.data.board));
         store.dispatch(updateBoards(res.data.boards));
+        next(action);
       } catch (e) {
         if (e?.response?.data?.error)
           store.dispatch(throwNewError(e.response.data.error));
@@ -84,7 +85,6 @@ const middleware: Middleware<{}, RootState> = (store) => (next) => async (
           );
       }
 
-      next(action);
       break;
     }
     case DELETE_LIST: {

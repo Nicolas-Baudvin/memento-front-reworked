@@ -9,6 +9,7 @@ import {
   UPDATE_BOARDS,
   UPDATE_BOARDS_LISTS,
 } from "./actions";
+import { Task } from "../Tasks/types";
 
 export interface BoardState {
   all?: Array<Board>;
@@ -34,21 +35,14 @@ export interface List {
   boardID?: string;
   title: string;
   color: string;
-  tasks: Array<Tasks>;
+  tasks: Array<Task>;
   order: number;
   _id: string;
 }
 
-export interface Tasks {
-  desc: string;
-  date: string;
-  author: string;
-  importance: boolean;
-}
-
 export interface ListPayload {
   title: string;
-  color: string
+  color: string;
 }
 
 /**
@@ -56,7 +50,7 @@ export interface ListPayload {
  */
 export interface UpdateCurrentBoardsListsAction {
   type: typeof UPDATE_BOARDS_LISTS;
-  payload: Array<List>
+  payload: Array<List>;
 }
 
 export interface UpdateCurrentBoardsAction {
