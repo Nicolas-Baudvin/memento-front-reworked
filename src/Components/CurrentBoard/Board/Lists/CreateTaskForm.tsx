@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { List } from "../../../../Store/Tabs/types";
+import { newTask } from "../../../../Store/Tasks/actions";
 
 interface CreateTaskFormProps {
   list: List;
@@ -8,17 +9,20 @@ interface CreateTaskFormProps {
 
 const CreateTaskForm = ({ list }: CreateTaskFormProps) => {
   const dispatch = useDispatch();
-  const [newTaskValue, setTaskValue] = useState("");
+  const [taskName, setTaskValue] = useState("");
+
   const handleChangeTaskValue = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setTaskValue(e.target.value);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(newTask({ taskName, list }));
   };
+
   return (
     <form onSubmit={handleSubmit} className="list-form" action="">
       <textarea
-        value={newTaskValue}
+        value={taskName}
         onChange={handleChangeTaskValue}
         name="task"
         cols={30}

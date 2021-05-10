@@ -39,9 +39,9 @@ const List = ({ list, index }: ListProps) => {
             />
           </h2>
           <div className="currentboard-content-lists__item-tasks">
-            {list.tasks &&
+            {list.tasks.length !== 0 &&
               list.tasks.map((task, index) => (
-                <Task task={task} index={index} />
+                <Task key={index} task={task} index={index} list={list} />
               ))}
             <CreateTaskForm list={list} />
           </div>

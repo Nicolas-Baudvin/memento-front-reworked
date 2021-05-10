@@ -1,0 +1,42 @@
+.task {
+    position: relative;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 80%;
+    margin: .7em 0;
+    padding: .1em 2em .1em .5em;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    box-shadow: 0 2px 5px rgba(0,0,0,.3);
+
+    &-menu {
+        &-button {
+            right: .01rem;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 0 0 3px rgba(#4B44C7, .8);
+    }
+
+    &-desc {
+        margin: 0;
+        word-break: break-all;
+    }
+
+    &-container {
+        display: flex;
+        flex-direction: column;
+
+        &-subdesc {
+            display: flex;
+            align-items: center;
+            time {
+                font-size: .7rem;
+                font-style: italic;
+                margin: .5em 0;
+            }
+        }
+    }
+}

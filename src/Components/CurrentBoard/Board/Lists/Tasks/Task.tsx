@@ -1,15 +1,17 @@
 import { MdMoreVert, MdWarning } from "react-icons/md";
 import { useState } from "react";
-import { Tasks } from "../../../../../Store/Tabs/types";
+import { Task as TaskType } from "../../../../../Store/Tasks/types";
 import TaskMenu from "./TaskMenu";
 import "./style.scss";
+import { List } from "../../../../../Store/Tabs/types";
 
 interface TaskProps {
-  task: Tasks;
+  task: TaskType;
   index: number;
+  list: List;
 }
 
-const Task = ({ task, index }: TaskProps) => {
+const Task = ({ task, index, list }: TaskProps) => {
   const [show, setShow] = useState(false);
   const handleClickShow = () => setShow(!show);
   return (
@@ -22,12 +24,14 @@ const Task = ({ task, index }: TaskProps) => {
           <time>{task.date}</time>
         </div>
       </div>
-      <button onClick={handleClickShow} className="button-icon">
-        <MdMoreVert />
+      <button
+        style={{ color: list.color }}
+        onClick={handleClickShow}
+        className="button-icon task-menu-button"
+      >
+        <MdMoreVert style={{ color: list.color }} />
       </button>
-      {
-        show && <TaskMenu task={task} index={index} />
-      }
+      {show && <TaskMenu task={task} index={index} />}
     </div>
   );
 };

@@ -14,7 +14,6 @@ import {
 interface CreateListFormProps {
   localDispatch: React.Dispatch<CurrentboardActions>;
   state: CurrentboardLocalState;
-  changePickerVisibility: MouseEventHandler<HTMLDivElement>;
 }
 
 interface ColorChoice {
@@ -32,7 +31,6 @@ const colors: ColorChoice = {
 const CreateListForm: React.FC<CreateListFormProps> = ({
   localDispatch,
   state,
-  changePickerVisibility,
 }) => {
   const dispatch = useDispatch();
   const handleSubmitListDatas = (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,13 +77,6 @@ const CreateListForm: React.FC<CreateListFormProps> = ({
             key={i}
           ></div>
         ))}
-        <div
-          onClick={changePickerVisibility}
-          className="currentboard-content-lists-add-colors__plus coloors"
-          style={{ backgroundColor: state.colorPicked }}
-        >
-          <MdAdd style={{ color: "#6622cc" }} />
-        </div>
       </div>
       <button style={{ margin: ".6em 0 0 0" }} className="button">
         Créer
