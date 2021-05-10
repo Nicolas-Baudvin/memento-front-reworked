@@ -41,7 +41,7 @@ export interface List {
 
 export interface Tasks {
   desc: string;
-  date: Date;
+  date: string;
   author: string;
   importance: boolean;
 }
