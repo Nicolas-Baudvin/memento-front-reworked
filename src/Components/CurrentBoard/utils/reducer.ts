@@ -1,17 +1,14 @@
 export const initialState: CurrentboardLocalState = {
-  isShowingPicker: false,
   listName: "",
   colorPicked: "",
   createListError: "",
 };
 
-const NEW_PICKER_VISIBILITY_STATE = "NEW_PICKER_VISIBILITY_STATE";
 const NEW_LIST_NAME = "NEW_LIST_NAME";
 const NEW_PICKER_COLOR = "NEW_PICKER_COLOR";
 const NEW_CREATELIST_ERROR = "NEW_CREATELIST_ERROR";
 
 export interface CurrentboardLocalState {
-  isShowingPicker: boolean;
   listName: string;
   colorPicked: string;
   createListError: string;
@@ -20,11 +17,6 @@ export interface CurrentboardLocalState {
 export interface NewCreateListError {
   type: typeof NEW_CREATELIST_ERROR;
   payload: string;
-}
-
-export interface NewPickerVisibilityStateAction {
-  type: typeof NEW_PICKER_VISIBILITY_STATE;
-  payload: boolean;
 }
 
 export interface NewListNameAction {
@@ -38,18 +30,12 @@ export interface NewPickerColorAction {
 }
 
 export type CurrentboardActions =
-  | NewPickerVisibilityStateAction
   | NewListNameAction
   | NewPickerColorAction
   | NewCreateListError;
 
 export const newCreateListError = (payload: string): CurrentboardActions => ({
   type: NEW_CREATELIST_ERROR,
-  payload
-});
-
-export const newPickerVisibility = (payload: boolean): CurrentboardActions => ({
-  type: NEW_PICKER_VISIBILITY_STATE,
   payload,
 });
 
@@ -71,13 +57,7 @@ const reducer = (
     case NEW_CREATELIST_ERROR: {
       return {
         ...state,
-        createListError: action.payload
-      }
-    }
-    case NEW_PICKER_VISIBILITY_STATE: {
-      return {
-        ...state,
-        isShowingPicker: action.payload,
+        createListError: action.payload,
       };
     }
     case NEW_LIST_NAME: {
