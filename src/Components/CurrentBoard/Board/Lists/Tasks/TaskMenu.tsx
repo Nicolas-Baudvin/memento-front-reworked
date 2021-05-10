@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { List } from "../../../../../Store/Tabs/types";
 import { Task } from "../../../../../Store/Tasks/types";
 
 interface TaskMenuProps {
   task: Task;
   index: number;
+  list: List;
 }
 
-const TaskMenu = ({ task, index }: TaskMenuProps) => {
+const TaskMenu = ({ task, index, list }: TaskMenuProps) => {
     const [value, setValue] = useState(task.desc);
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.target.value);

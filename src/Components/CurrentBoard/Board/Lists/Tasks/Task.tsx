@@ -31,7 +31,7 @@ const Task = ({ task, index, list }: TaskProps) => {
       >
         <MdMoreVert style={{ color: list.color }} />
       </button>
-      {show && <TaskMenu task={task} index={index} />}
+      {show && <TaskMenu task={task} index={index} list={list} />}
     </div>
   );
 };
