@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { rootReducer } from "./reducer";
+import thunk from "redux-thunk";
 
-import UserMw from "./UserData/middleware";
 import ErrorMw from "./Message/middleware";
 import BoardMw from "./Tabs/middleware";
 import TaskMw from "./Tasks/middleware";
 
-const middlewares = applyMiddleware(UserMw, ErrorMw, BoardMw, TaskMw);
+const middlewares = applyMiddleware(thunk);
 
 const withReduxDevTools = compose;
 

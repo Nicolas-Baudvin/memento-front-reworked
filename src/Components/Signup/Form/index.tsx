@@ -1,8 +1,6 @@
 import Input from "../../../ReusableComponents/Input";
 import Button from "../../../ReusableComponents/Button";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { createAccount } from "../../../Store/UserData/actions";
 import inputs from "../utils";
 import { InputName } from "../../Login/Form/types";
 import checkFields, { FormErrors } from "../utils/checkFields";
@@ -15,7 +13,6 @@ const initialErrorState = {
 };
 
 const Form: React.FC = () => {
-  const dispatch = useDispatch();
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -37,7 +34,6 @@ const Form: React.FC = () => {
       return setErrors({ ...formErrors });
 
     setErrors({ ...initialErrorState });
-    return dispatch(createAccount(state));
   };
 
   const handleChange = (

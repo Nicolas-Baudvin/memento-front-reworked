@@ -1,4 +1,4 @@
-import { CREATE_ACCOUNT, LOGOUT, STORE_FETCHED_DATA, USER_AUTH } from "./actions";
+import { LOGOUT, STORE_FETCHED_DATA } from "./actions";
 
 export interface UserDataState {
   email: string;
@@ -20,36 +20,16 @@ export interface NewUserData {
   password: string;
   confPass: string;
   error?: string;
-  message?: string
-}
-
-export interface StoreFetchedData {
-  email: string;
-  token: string;
-  _id: string;
-}
-
-export interface CreateAccountAction {
-  type: typeof CREATE_ACCOUNT;
-  payload: NewUserData;
-}
-
-export interface UserAuthAction {
-  type: typeof USER_AUTH;
-  payload: UserData;
+  message?: string;
 }
 
 export interface LogoutAction {
-    type: typeof LOGOUT;
+  type: typeof LOGOUT;
 }
 
 export interface StoreFetchedDataAction {
   type: typeof STORE_FETCHED_DATA;
-  payload: StoreFetchedData;
+  payload: any;
 }
 
-export type UserDataActions =
-  | LogoutAction
-  | UserAuthAction
-  | CreateAccountAction
-  | StoreFetchedDataAction;
+export type UserDataActions = LogoutAction | StoreFetchedDataAction;

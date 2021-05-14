@@ -1,14 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import Button from "../../../ReusableComponents/Button";
 import Input from "../../../ReusableComponents/Input";
-import { userAuth } from "../../../Store/UserData/actions";
+import { RootState } from "../../../Store/reducer";
+import { authenticateUser } from "../../../Store/UserData/reducer";
 import { InputName } from "./types";
 import checkLoginFields from "./utils";
 
 const Form = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
-
+  const { token } = useSelector((State: RootState) => State.user);
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -21,16 +24,23 @@ const Form = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("submit")
     const errors = checkLoginFields(state);
     if (errors.email || errors.password) return setErrors({ ...errors });
     setErrors({ email: "", password: "" });
-    dispatch(userAuth(state));
+    return dispatch(authenticateUser({ ...state }));
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     inputName: InputName
   ) => setState({ ...state, [inputName]: e.target.value });
+
+  useEffect(() => {
+    if (token) {
+      history.push("/dashboard");
+    }
+  }, [])
 
   return (
     <form onSubmit={handleSubmit} action="">

@@ -1,10 +1,7 @@
+import axios from "axios";
 import { getDataFromLocalStorage } from "../../Utils";
-import {
-  CREATE_ACCOUNT,
-  LOGOUT,
-  STORE_FETCHED_DATA,
-  USER_AUTH,
-} from "./actions";
+import { newMessage } from "../Message/actions";
+import { LOGOUT, storeFetchedData, STORE_FETCHED_DATA } from "./actions";
 import { UserDataActions, UserDataState } from "./types";
 
 const initialState: UserDataState = {
@@ -18,23 +15,11 @@ const initialState: UserDataState = {
 };
 
 const reducer = (
-  state = initialState,
-  action: UserDataActions
+  action: UserDataActions,
+  state = initialState
 ): UserDataState => {
-  switch (action.type) {
-    case CREATE_ACCOUNT: {
-      return {
-        ...state,
-        message: action.payload.message,
-        error: action.payload.error,
-      };
-    }
-    case USER_AUTH: {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    }
+  console.log(action);
+  switch (action?.type) {
     case STORE_FETCHED_DATA: {
       return {
         ...state,
@@ -42,11 +27,52 @@ const reducer = (
       };
     }
     case LOGOUT: {
+      localStorage.clear();
       return { ...initialState, token: "" };
     }
     default:
       return state;
   }
 };
+
+export interface Credentials {
+  email: string;
+  password: string;
+  username?: string;
+  confPass?: string;
+}
+
+export const authenticateUser =
+  (userCredentials: Credentials) => async (dispatch: any, getState: any) => {
+    const url: string = process.env.REACT_APP_LOGIN_URL || "";
+    const res = await axios.post(
+      url,
+      { ...userCredentials },
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch(newMessage(res.data.message));
+    dispatch(storeFetchedData(res.data));
+  };
+
+export const createUser = (userDatas: Credentials) => async (dispatch: any, getState: any) => {
+  const url = process.env.REACT_APP_SIGNUP_URL || "";
+  const res = await axios.post(
+    url,
+    { ...userDatas },
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+    }
+  );
+  dispatch(newMessage(res.data.message));
+}
 
 export default reducer;
