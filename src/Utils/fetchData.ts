@@ -16,7 +16,7 @@ const fetchData = async (opts: any) => {
       });
       return resolve(res.data);
     } catch (error) {
-        return reject(error);
+      return reject(error);
     }
   });
 };
