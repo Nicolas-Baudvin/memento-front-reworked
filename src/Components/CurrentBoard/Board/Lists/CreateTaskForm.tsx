@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { List } from "../../../../Store/Tabs/types";
+import { List } from "../../../../Store/List/types";
 import { newTask } from "../../../../Store/Tasks/actions";
 
 interface CreateTaskFormProps {

@@ -1,8 +1,6 @@
-import { MdAdd } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { MouseEventHandler } from "react-router/node_modules/@types/react";
 import Input from "../../../../ReusableComponents/Input";
-import { newList } from "../../../../Store/Tabs/actions";
+import { newList } from "../../../../Store/List/actions";
 import {
   CurrentboardActions,
   CurrentboardLocalState,

@@ -13,8 +13,8 @@ import {
 } from "react-beautiful-dnd";
 import CreateList from "../CreateList";
 import List from "./List";
-import { updateCurrentBoardLists } from "../../../../Store/Tabs/actions";
 import { useState } from "react";
+import { updateCurrentBoardLists } from "../../../../Store/List/actions";
 
 interface ListProps {
   localDispatch: React.Dispatch<CurrentboardActions>;
@@ -32,13 +32,13 @@ const Lists = ({ localDispatch, state }: ListProps) => {
 
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
     const { destination, source, draggableId, type } = result;
-        if (!destination) return;
+    if (!destination) return;
 
-        if (
-          destination.droppableId === source.droppableId &&
-          destination.index === source.index
-        )
-          return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
 
     if (current && current.lists) {
       if (type === "column") {
@@ -65,14 +65,10 @@ const Lists = ({ localDispatch, state }: ListProps) => {
             }
             return list;
           })
+          .sort((a, b) => a.order - b.order);
         if (newListArray.length) {
-          console.log(newListArray);
-          setLists(newListArray.sort((a, b) => a.order - b.order));
-          dispatch(
-            updateCurrentBoardLists(
-              newListArray.sort((a, b) => a.order - b.order)
-            )
-          );
+          setLists(newListArray);
+          dispatch(updateCurrentBoardLists(newListArray));
         }
       }
     }
@@ -93,7 +89,9 @@ const Lists = ({ localDispatch, state }: ListProps) => {
               className="currentboard-content-lists"
             >
               {lists &&
-                lists.map((list, i) => <List key={i} list={list} index={list._id} />)}
+                lists.map((list, i) => (
+                  <List key={i} list={list} index={list._id} />
+                ))}
               {provided.placeholder}
               <CreateList localDispatch={localDispatch} state={state} />
             </div>

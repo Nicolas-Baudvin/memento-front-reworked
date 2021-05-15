@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { List } from "../../../../../Store/Tabs/types";
+import { List } from "../../../../../Store/List/types";
 import { Task } from "../../../../../Store/Tasks/types";
 
 interface TaskMenuProps {

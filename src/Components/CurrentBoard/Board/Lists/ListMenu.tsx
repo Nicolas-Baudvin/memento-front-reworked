@@ -2,10 +2,10 @@ import cx from "classnames";
 import { useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { changeListName, deleteList } from "../../../../Store/Tabs/actions";
-import { List } from "../../../../Store/Tabs/types";
 import reducer, { initialState, newInputValue } from "./reducer";
 import { RootState } from "../../../../Store/reducer";
+import { changeListName, deleteList } from "../../../../Store/List/actions";
+import { List } from "../../../../Store/List/types";
 
 interface ListMenuProps {
   isShowMenu: boolean;

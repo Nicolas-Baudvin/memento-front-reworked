@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MdMoreVert } from "react-icons/md";
-import { List as ListType } from "../../../../Store/Tabs/types";
+import { List as ListType } from "../../../../Store/List/types";
 import { Draggable } from "react-beautiful-dnd";
 import ListMenu from "./ListMenu";
 import Task from "./Tasks/Task";

@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import { List } from "../../../../../Store/Tabs/types";
+import { List } from "../../../../../Store/List/types";
 import { Task } from "../../../../../Store/Tasks/types";
 import { useState as useStateMock } from "react";
 import TaskMenu from "./TaskMenu";

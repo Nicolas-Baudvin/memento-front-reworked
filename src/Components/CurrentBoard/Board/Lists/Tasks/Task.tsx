@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Task as TaskType } from "../../../../../Store/Tasks/types";
 import TaskMenu from "./TaskMenu";
 import "./style.scss";
-import { List } from "../../../../../Store/Tabs/types";
+import { List } from "../../../../../Store/List/types";
 
 interface TaskProps {
   task: TaskType;
