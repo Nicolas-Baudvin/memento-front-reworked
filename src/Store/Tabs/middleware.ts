@@ -23,8 +23,8 @@ const optsByRoute = (action: any, opts: any) => ({
       _id: opts._id,
       username: opts.username,
       email: opts._email,
-      image: action.payload.image,
-      title: action.payload.title,
+      image: action.payload?.image,
+      title: action.payload?.title,
     },
     headers: {
       Authorization: `Bearer ${opts.token}`,
