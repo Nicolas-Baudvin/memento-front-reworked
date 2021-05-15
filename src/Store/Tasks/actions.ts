@@ -5,6 +5,12 @@ export const DELETE_TASK = "task/DELETE_TASK";
 export const CHANGE_TASK_NAME = "task/CHANGE_TASK_NAME";
 export const CHANGE_TASK_IMPORTANCE = "task/CHANGE_TASK_NAME";
 export const CHANGE_TASK_AUTHOR = "task/CHANGE_TASK_AUTHOR";
+export const CHANGE_TASK_ORDER = "task/CHANGE_TASK_ORDER";
+
+export const changeTaskOrder = (payload: TaskPayload): TaskActions => ({
+  type: CHANGE_TASK_ORDER,
+  payload
+});
 
 export const newTask = (payload: TaskPayload): TaskActions => ({
   type: NEW_TASK,

@@ -5,6 +5,7 @@ import {
   DELETE_TASK,
   CHANGE_TASK_AUTHOR,
   CHANGE_TASK_IMPORTANCE,
+  CHANGE_TASK_ORDER,
 } from "./actions";
 
 export interface TaskPayload {
@@ -14,6 +15,7 @@ export interface TaskPayload {
     importance?: boolean;
     task?: Task;
     list: List;
+    tasks?: Array<Task>;
 }
 
 export interface Task {
@@ -44,6 +46,11 @@ export interface DeleteTaskAction {
   payload: TaskPayload;
 }
 
+export interface ChangeTaskOrderAction {
+  type: typeof CHANGE_TASK_ORDER;
+    payload: TaskPayload;
+}
+
 export interface ChangeTaskAuthorAction {
   type: typeof CHANGE_TASK_AUTHOR;
   payload: TaskPayload;
@@ -59,4 +66,5 @@ export type TaskActions =
   | ChangeTaskNameAction
   | DeleteTaskAction
   | ChangeTaskAuthorAction
-  | ChangeTaskImportanceAction;
+  | ChangeTaskImportanceAction
+  | ChangeTaskOrderAction;
