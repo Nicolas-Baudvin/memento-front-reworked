@@ -5,8 +5,9 @@ import UserMw from "./UserData/middleware";
 import ErrorMw from "./Message/middleware";
 import BoardMw from "./Tabs/middleware";
 import TaskMw from "./Tasks/middleware";
+import ListMw from "./List/middleware";
 
-const middlewares = applyMiddleware(UserMw, ErrorMw, BoardMw, TaskMw);
+const middlewares = applyMiddleware(UserMw, ErrorMw, BoardMw, ListMw, TaskMw);
 
 const withReduxDevTools = compose;
 

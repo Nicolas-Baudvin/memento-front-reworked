@@ -1,15 +1,11 @@
 import {
-  CHANGE_LIST_NAME,
   DELETE_BOARD,
-  DELETE_LIST,
   GET_BOARDS,
   NEW_BOARD,
   NEW_CURRENT_BOARD,
-  NEW_LIST,
   UPDATE_BOARDS,
-  UPDATE_BOARDS_LISTS,
 } from "./actions";
-import { Task } from "../Tasks/types";
+import { ChangeListNameAction, DeleteListAction, List, NewListAction, UpdateCurrentBoardsListsAction } from "../List/types";
 
 export interface BoardState {
   all?: Array<Board>;
@@ -31,36 +27,13 @@ export interface Owner {
   _id: string;
 }
 
-export interface List {
-  boardID?: string;
-  title: string;
-  color: string;
-  tasks: Array<Task>;
-  order: number;
-  _id: string;
-}
-
-export interface ListPayload {
-  title: string;
-  color: string;
-}
-
 /**
  * Actions
  */
-export interface UpdateCurrentBoardsListsAction {
-  type: typeof UPDATE_BOARDS_LISTS;
-  payload: Array<List>;
-}
 
 export interface UpdateCurrentBoardsAction {
   type: typeof UPDATE_BOARDS;
   payload: Array<Board>;
-}
-
-export interface NewListAction {
-  type: typeof NEW_LIST;
-  payload: ListPayload;
 }
 
 export interface GetBoardAction {
@@ -82,15 +55,6 @@ export interface NewCurrentBoardAction {
   payload: Board;
 }
 
-export interface DeleteListAction {
-  type: typeof DELETE_LIST;
-  payload: List;
-}
-
-export interface ChangeListNameAction {
-  type: typeof CHANGE_LIST_NAME;
-  payload: { list: List; newName: string };
-}
 
 export interface ImageData {
   url: string;

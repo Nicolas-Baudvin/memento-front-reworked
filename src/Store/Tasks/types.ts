@@ -1,4 +1,4 @@
-import { List } from "../Tabs/types";
+import { List } from "../List/types";
 import {
   NEW_TASK,
   CHANGE_TASK_NAME,
