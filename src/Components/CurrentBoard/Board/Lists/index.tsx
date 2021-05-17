@@ -59,8 +59,7 @@ const Lists = ({ localDispatch, state }: ListProps) => {
       .sort((a: ListType, b: ListType) => a.order - b.order);
   };
 
-  // TODO: Refact
-  const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
+  const onDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
     if (!destination) return;
 
