@@ -1,10 +1,9 @@
 import cx from "classnames";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import reducer, { initialState, newInputValue } from "./reducer";
 import { RootState } from "../../../../Store/reducer";
-import { changeListName, deleteList } from "../../../../Store/List/actions";
+import { listAction } from "../../../../Store/List/actions";
 import { List } from "../../../../Store/List/types";
 
 interface ListMenuProps {
@@ -14,7 +13,7 @@ interface ListMenuProps {
 }
 
 const ListMenu = ({ isShowMenu, list, setShowMenu }: ListMenuProps) => {
-  const { current } = useSelector((state: RootState) => state.boards);
+  const { current } = useSelector((State: RootState) => State.boards);
   const dispatch = useDispatch();
   const [state, localDispatch] = useReducer(reducer, initialState);
 
@@ -28,12 +27,12 @@ const ListMenu = ({ isShowMenu, list, setShowMenu }: ListMenuProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (state.value) {
-      dispatch(changeListName(list, state.value));
+      dispatch(listAction({ list, title: state.value }, "title"));
     }
   };
 
   const handleClickDeleteList = () => {
-    dispatch(deleteList(list));
+    dispatch(listAction({ list }, "delete"));
     setShowMenu(false);
   };
 

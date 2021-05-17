@@ -8,7 +8,7 @@ import { useReducer } from "react";
 import Lists from "./Lists";
 
 const Board = () => {
-  const { current } = useSelector((state: RootState) => state.boards);
+  const { current } = useSelector((State: RootState) => State.boards);
   const [state, localDispatch] = useReducer(reducer, initialState);
 
   return (

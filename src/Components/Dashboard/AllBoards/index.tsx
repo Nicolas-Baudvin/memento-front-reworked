@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { RootState } from "../../../Store/reducer";
+import { Board as BoardType } from "../../../Store/Tabs/types";
 
 interface AllBoardsProps {
   handleClickDelete: Function;
@@ -17,7 +18,7 @@ const AllBoards = ({ handleClickDelete }: AllBoardsProps) => {
   return (
     <div className="dashboard-boards">
       {all &&
-        all.map((board, i) => (
+        all.map((board: BoardType, i: number) => (
           <div key={i} className="dashboard-boards__item">
             <img
               className="delete"

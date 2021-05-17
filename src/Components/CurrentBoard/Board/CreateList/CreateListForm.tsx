@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import Input from "../../../../ReusableComponents/Input";
-import { newList } from "../../../../Store/List/actions";
+import { listAction } from "../../../../Store/List/actions";
 import {
   CurrentboardActions,
   CurrentboardLocalState,
@@ -31,19 +31,30 @@ const CreateListForm: React.FC<CreateListFormProps> = ({
   state,
 }) => {
   const dispatch = useDispatch();
+
+  const clearFormState = () => {
+    localDispatch(newCreateListError(""));
+    localDispatch(newListName(""));
+    localDispatch(newPickerColor(""));
+  };
+
   const handleSubmitListDatas = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { listName, colorPicked } = state;
     if (!listName) {
-      return localDispatch(newCreateListError("Le nom de la liste est incorrect. (20 caractères max)"));
+      return localDispatch(
+        newCreateListError(
+          "Le nom de la liste est incorrect. (20 caractères max)"
+        )
+      );
     }
     if (!colorPicked) {
-      return localDispatch(newCreateListError("Vous devez choisir une couleur."));
+      return localDispatch(
+        newCreateListError("Vous devez choisir une couleur.")
+      );
     }
-    dispatch(newList({ title: listName, color: colorPicked }));
-    localDispatch(newCreateListError(""));
-    localDispatch(newListName(""));
-    localDispatch(newPickerColor(""));
+    dispatch(listAction({ title: listName, color: colorPicked }, "create"));
+    clearFormState();
   };
 
   const handleClickColor = (color: string) => {

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { RootState } from "../../Store/reducer";
 import { getBoards, newCurrentBoard } from "../../Store/Tabs/actions";
+import { Board as BoardType } from "../../Store/Tabs/types";
 import { logout } from "../../Store/UserData/actions";
 import Board from "./Board";
 import NoBoardAvailable from "./NoBoardAvailable";
@@ -18,7 +19,7 @@ const CurrentBoard = () => {
   useEffect(() => {
     if (all) {
       const currentBoard = all?.find(
-        (board) => board.title === params.tabTitle
+        (board: BoardType) => board.title === params.tabTitle
       );
       if (currentBoard) dispatch(newCurrentBoard(currentBoard));
     } else {

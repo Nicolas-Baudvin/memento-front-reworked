@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../Store/reducer";
 import {
@@ -13,8 +13,8 @@ import {
 } from "react-beautiful-dnd";
 import CreateList from "../CreateList";
 import List from "./List";
-import { useState } from "react";
-import { updateCurrentBoardLists } from "../../../../Store/List/actions";
+import { listAction } from "../../../../Store/List/actions";
+import { List as ListType } from "../../../../Store/List/types";
 
 interface ListProps {
   localDispatch: React.Dispatch<CurrentboardActions>;
@@ -22,7 +22,7 @@ interface ListProps {
 }
 
 const Lists = ({ localDispatch, state }: ListProps) => {
-  const { current } = useSelector((state: RootState) => state.boards);
+  const { current } = useSelector((State: RootState) => State.boards);
   const [lists, setLists] = useState(current?.lists);
   const dispatch = useDispatch();
 
@@ -30,6 +30,7 @@ const Lists = ({ localDispatch, state }: ListProps) => {
     setLists(current?.lists);
   }, [current?.lists]);
 
+  // TODO: Refact
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
     const { destination, source, draggableId, type } = result;
     if (!destination) return;
@@ -43,8 +44,8 @@ const Lists = ({ localDispatch, state }: ListProps) => {
     if (current && current.lists) {
       if (type === "column") {
         const allLists = current.lists;
-        let newListArray = allLists
-          .map((list) => {
+        let newListsArray = allLists
+          .map((list: ListType) => {
             if (draggableId === list._id && destination) {
               list.order = destination.index;
             } else {
@@ -65,10 +66,10 @@ const Lists = ({ localDispatch, state }: ListProps) => {
             }
             return list;
           })
-          .sort((a, b) => a.order - b.order);
-        if (newListArray.length) {
-          setLists(newListArray);
-          dispatch(updateCurrentBoardLists(newListArray));
+          .sort((a: ListType, b: ListType) => a.order - b.order);
+        if (newListsArray.length) {
+          setLists(newListsArray);
+          dispatch(listAction({ lists: newListsArray }, "order"));
         }
       }
     }
@@ -89,7 +90,7 @@ const Lists = ({ localDispatch, state }: ListProps) => {
               className="currentboard-content-lists"
             >
               {lists &&
-                lists.map((list, i) => (
+                lists.map((list: ListType, i: number) => (
                   <List key={i} list={list} index={list._id} />
                 ))}
               {provided.placeholder}
