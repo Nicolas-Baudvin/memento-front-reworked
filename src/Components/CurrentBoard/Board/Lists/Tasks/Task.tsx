@@ -27,11 +27,11 @@ const Task = ({ task, index, list }: TaskProps) => {
       <button
         style={{ color: list.color }}
         onClick={handleClickShow}
-        className="button-icon task-menu-button"
+        className="button-icon task-menu-button-display"
       >
         <MdMoreVert style={{ color: list.color }} />
       </button>
-      {show && <TaskMenu task={task} index={index} list={list} />}
+      <TaskMenu task={task} index={index} list={list} setShow={setShow} show={show} />
     </div>
   );
 };

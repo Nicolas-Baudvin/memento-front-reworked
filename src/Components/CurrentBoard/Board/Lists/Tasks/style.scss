@@ -3,21 +3,91 @@
     border-radius: 8px;
     background-color: #fff;
     width: 80%;
-    margin: .7em 0;
-    padding: .1em 2em .1em .5em;
+    margin: 0.7em 0;
+    padding: 0.1em 2em 0.1em 0.5em;
     display: flex;
     align-items: center;
     cursor: grab;
-    box-shadow: 0 2px 5px rgba(0,0,0,.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
+    &-importance {
+        color: red;
+        margin: 0 .5rem 0 0;
+        font-size: 1.2rem;
+    }
 
     &-menu {
+        z-index: 10;
+        position: absolute;
+        top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(#000, 0.8);
+        padding: 0.5em;
+        border-radius: 5px;
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+        overflow: hidden;
+        transition: .2s ease-in-out;
+
+        .back {
+            background-color: #db2a13;
+        }
+
+        &-form {
+            textarea {
+                width: 220px;
+                height: 100px;
+                font-size: 1rem;
+            }
+            &-submit {
+                width: 190px;
+                border: none;
+                padding: 0.3em 0.6em;
+                margin: 0.2em 0;
+                border-radius: 5px;
+                background-color: #30b346;
+                color: white;
+                font-size: 1.1rem;
+                font-weight: 300;
+                cursor: pointer;
+                outline: none;
+                transition: 0.2s ease-in-out;
+
+                &:hover {
+                    background-color: darken($color: #30b346, $amount: 5);
+                }
+            }
+        }
+
         &-button {
-            right: .01rem;
+            width: 190px;
+            border: none;
+            padding: 0.3em 0.6em;
+            margin: 0.2em 0;
+            border-radius: 5px;
+            background-color: #4b44c7;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 300;
+            cursor: pointer;
+            outline: none;
+            transition: 0.2s ease-in-out;
+
+            &:hover {
+                background-color: darken($color: #4b44c7, $amount: 5);
+            }
+
+            &-display {
+                right: 0.01rem;
+            }
         }
     }
 
     &:hover {
-        box-shadow: 0 0 0 3px rgba(#4B44C7, .8);
+        box-shadow: 0 0 0 3px rgba(#4b44c7, 0.8);
     }
 
     &-desc {
@@ -28,15 +98,30 @@
     &-container {
         display: flex;
         flex-direction: column;
+        width: 80%;
 
         &-subdesc {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            width: 100%;
             time {
-                font-size: .7rem;
+                font-size: 0.7rem;
                 font-style: italic;
-                margin: .5em 0;
+                margin: 0.5em 0;
+            }
+            p {
+                font-size: .8rem;
+                font-weight: bold;
+                font-style: italic;
+                margin: 0;
             }
         }
     }
+}
+
+.task-menu-show {
+    height: 300px;
+    width: 230px;
+    opacity: 1;
 }
