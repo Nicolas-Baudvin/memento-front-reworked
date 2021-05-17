@@ -39,7 +39,6 @@ const middleware: Middleware<{}, RootState> =
       case GET_BOARDS: {
         const { token, _id, email } = store.getState().user;
         const opts = optsByRoute(action, { token, _id, email })["get"];
-
         try {
           const data: any = await fetchData(opts);
           if (data.boards.length) store.dispatch(updateBoards(data.boards));

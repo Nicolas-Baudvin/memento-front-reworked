@@ -5,7 +5,7 @@ import {
   NEW_CURRENT_BOARD,
   UPDATE_BOARDS,
 } from "./actions";
-import { ChangeListNameAction, DeleteListAction, List, NewListAction, UpdateCurrentBoardsListsAction } from "../List/types";
+import { List } from "../List/types";
 
 export interface BoardState {
   all?: Array<Board>;
@@ -71,8 +71,4 @@ export type BoardActions =
   | NewBoardAction
   | UpdateCurrentBoardsAction
   | DeleteBoardAction
-  | NewCurrentBoardAction
-  | NewListAction
-  | DeleteListAction
-  | ChangeListNameAction
-  | UpdateCurrentBoardsListsAction;
+  | NewCurrentBoardAction;
