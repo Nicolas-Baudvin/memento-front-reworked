@@ -1,38 +1,9 @@
-import { TaskActions, TaskPayload } from "./types";
+import { RequestType, TaskPayload } from "./types";
 
-export const NEW_TASK = "task/NEW_TASK";
-export const DELETE_TASK = "task/DELETE_TASK";
-export const CHANGE_TASK_NAME = "task/CHANGE_TASK_NAME";
-export const CHANGE_TASK_IMPORTANCE = "task/CHANGE_TASK_NAME";
-export const CHANGE_TASK_AUTHOR = "task/CHANGE_TASK_AUTHOR";
-export const CHANGE_TASK_ORDER = "task/CHANGE_TASK_ORDER";
+export const TASK_ACTION = "task/TASK_ACTION";
 
-export const changeTaskOrder = (payload: TaskPayload): TaskActions => ({
-  type: CHANGE_TASK_ORDER,
-  payload
-});
-
-export const newTask = (payload: TaskPayload): TaskActions => ({
-  type: NEW_TASK,
+export const taskAction = (payload: TaskPayload, requestType: RequestType) => ({
+  type: TASK_ACTION,
   payload,
-});
-
-export const deleteTask = (payload: TaskPayload): TaskActions => ({
-  type: DELETE_TASK,
-  payload,
-});
-
-export const changeTaskName = (payload: TaskPayload): TaskActions => ({
-  type: CHANGE_TASK_NAME,
-  payload,
-});
-
-export const changeTaskImportance = (payload: TaskPayload): TaskActions => ({
-  type: CHANGE_TASK_IMPORTANCE,
-  payload,
-});
-
-export const changeTaskAuthor = (payload: TaskPayload): TaskActions => ({
-  type: CHANGE_TASK_AUTHOR,
-  payload,
+  requestType
 });

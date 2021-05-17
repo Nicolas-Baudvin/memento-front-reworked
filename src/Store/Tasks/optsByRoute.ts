@@ -1,6 +1,6 @@
-import { TaskActions } from "./types";
+import { TaskAction } from "./types";
 
-const optsByRoute = (action: TaskActions, opts: any) => ({
+const optsByRoute = (action: TaskAction, opts: any) => ({
   create: {
     url: process.env.REACT_APP_CREATE_TASK,
     method: "post",
