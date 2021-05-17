@@ -1,17 +1,19 @@
-const optsByRoute = (action: any, opts: any) => ({
+import { ListAction } from "./types";
+
+const optsByRoute = (action: ListAction, opts: any) => ({
   order: {
     url: process.env.REACT_APP_CHANGE_LIST_ORDER,
     method: "patch",
     data: {
       _id: opts._id,
-      listsUpdated: action.payload,
+      listsUpdated: action.payload.lists,
       boardID: opts.current?._id,
     },
     headers: {
       Authorization: `Bearer ${opts.token}`,
     },
   },
-  name: {
+  title: {
     url: process.env.REACT_APP_CHANGE_LIST_NAME,
     method: "patch",
     data: {
