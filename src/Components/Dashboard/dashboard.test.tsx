@@ -3,7 +3,6 @@ import { useSelector as useSelectorMock } from "react-redux";
 import Dashboard from ".";
 import {
   getBoards,
-  newBoard,
 } from "../../Store/Tabs/actions";
 import { Board } from "../../Store/Tabs/types";
 import { throwNewError } from "../../Store/Message/actions";
@@ -12,7 +11,6 @@ const url =
   "https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
 const alt = "space";
 const image = { url, alt };
-const title = "test2";
 const mockBoardData: Board = {
   title: "title",
   ownerID: "ownerID",

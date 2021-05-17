@@ -9,7 +9,6 @@ import {
   DragDropContext,
   Droppable,
   DropResult,
-  ResponderProvided,
 } from "react-beautiful-dnd";
 import CreateList from "../CreateList";
 import List from "./List";
