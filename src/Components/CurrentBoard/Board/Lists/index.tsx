@@ -30,9 +30,38 @@ const Lists = ({ localDispatch, state }: ListProps) => {
     setLists(current?.lists);
   }, [current?.lists]);
 
+  const createNewListArraySortedByOrder = (
+    allLists: Array<ListType>,
+    { draggableId, destination, source }: DropResult
+  ): Array<ListType> => {
+    return allLists
+      .map((list: ListType) => {
+        if (draggableId === list._id && destination) {
+          list.order = destination.index;
+        } else {
+          if (
+            destination &&
+            source.index < list.order &&
+            destination.index >= list.order
+          ) {
+            list.order -= 1;
+          }
+          if (
+            destination &&
+            source.index > list.order &&
+            destination.index <= list.order
+          ) {
+            list.order += 1;
+          }
+        }
+        return list;
+      })
+      .sort((a: ListType, b: ListType) => a.order - b.order);
+  };
+
   // TODO: Refact
   const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
-    const { destination, source, draggableId, type } = result;
+    const { destination, source, type } = result;
     if (!destination) return;
 
     if (
@@ -43,30 +72,10 @@ const Lists = ({ localDispatch, state }: ListProps) => {
 
     if (current && current.lists) {
       if (type === "column") {
-        const allLists = current.lists;
-        let newListsArray = allLists
-          .map((list: ListType) => {
-            if (draggableId === list._id && destination) {
-              list.order = destination.index;
-            } else {
-              if (
-                destination &&
-                source.index < list.order &&
-                destination.index >= list.order
-              ) {
-                list.order -= 1;
-              }
-              if (
-                destination &&
-                source.index > list.order &&
-                destination.index <= list.order
-              ) {
-                list.order += 1;
-              }
-            }
-            return list;
-          })
-          .sort((a: ListType, b: ListType) => a.order - b.order);
+        const newListsArray = createNewListArraySortedByOrder(
+          current.lists,
+          result
+        );
         if (newListsArray.length) {
           setLists(newListsArray);
           dispatch(listAction({ lists: newListsArray }, "order"));
