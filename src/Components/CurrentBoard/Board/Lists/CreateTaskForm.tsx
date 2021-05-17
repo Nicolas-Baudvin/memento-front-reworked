@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { List } from "../../../../Store/List/types";
-import { newTask } from "../../../../Store/Tasks/actions";
+import { taskAction } from "../../../../Store/Tasks/actions";
 
 interface CreateTaskFormProps {
   list: List;
@@ -16,7 +16,7 @@ const CreateTaskForm = ({ list }: CreateTaskFormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(newTask({ taskName, list }));
+    dispatch(taskAction({ taskName, list }, "create"));
   };
 
   return (
