@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdMoreVert } from "react-icons/md";
 import { List as ListType } from "../../../../Store/List/types";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import ListMenu from "./ListMenu";
 import Task from "./Tasks/Task";
 import "./style.scss";
@@ -38,13 +38,21 @@ const List = ({ list, index }: ListProps) => {
               setShowMenu={setShowMenu}
             />
           </h2>
-          <div className="currentboard-content-lists__item-tasks">
-            {list.tasks.length !== 0 &&
-              list.tasks.map((task, index) => (
-                <Task key={index} task={task} index={index} list={list} />
-              ))}
-            <CreateTaskForm list={list} />
-          </div>
+          <Droppable direction="vertical" type="task" droppableId={list._id}>
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                className="currentboard-content-lists__item-tasks"
+              >
+                {list.tasks.length !== 0 &&
+                  list.tasks.map((task, i) => (
+                    <Task key={i} task={task} index={i} list={list} />
+                  ))}
+                {provided.placeholder}
+                <CreateTaskForm list={list} />
+              </div>
+            )}
+          </Droppable>
         </div>
       )}
     </Draggable>

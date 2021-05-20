@@ -34,6 +34,10 @@
 
         .back {
             background-color: #db2a13;
+
+            &:hover {
+                background-color: darken($color: #db2a13, $amount: 5);
+            }
         }
 
         &-form {
@@ -98,11 +102,12 @@
     &-container {
         display: flex;
         flex-direction: column;
-        width: 80%;
+        width: 100%;
 
         &-subdesc {
             display: flex;
             align-items: center;
+            align-self: center;
             justify-content: space-between;
             width: 100%;
             time {

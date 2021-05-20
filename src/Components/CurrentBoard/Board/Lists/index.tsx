@@ -5,15 +5,19 @@ import {
   CurrentboardActions,
   CurrentboardLocalState,
 } from "../../utils/reducer";
-import {
-  DragDropContext,
-  Droppable,
-  DropResult,
-} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import CreateList from "../CreateList";
 import List from "./List";
 import { listAction } from "../../../../Store/List/actions";
 import { List as ListType } from "../../../../Store/List/types";
+import { Task } from "../../../../Store/Tasks/types";
+import { taskAction } from "../../../../Store/Tasks/actions";
+import {
+  createNewListArraySortedByOrder,
+  createNewTaskArraySortedByOrder,
+  createSortedDestinationTasks,
+  createSortedSourceTasks,
+} from "./Utils";
 
 interface ListProps {
   localDispatch: React.Dispatch<CurrentboardActions>;
@@ -29,37 +33,19 @@ const Lists = ({ localDispatch, state }: ListProps) => {
     setLists(current?.lists);
   }, [current?.lists]);
 
-  const createNewListArraySortedByOrder = (
-    allLists: Array<ListType>,
-    { draggableId, destination, source }: DropResult
-  ): Array<ListType> => {
-    return allLists
-      .map((list: ListType) => {
-        if (draggableId === list._id && destination) {
-          list.order = destination.index;
-        } else {
-          if (
-            destination &&
-            source.index < list.order &&
-            destination.index >= list.order
-          ) {
-            list.order -= 1;
-          }
-          if (
-            destination &&
-            source.index > list.order &&
-            destination.index <= list.order
-          ) {
-            list.order += 1;
-          }
-        }
-        return list;
-      })
-      .sort((a: ListType, b: ListType) => a.order - b.order);
-  };
-
   const onDragEnd = (result: DropResult) => {
-    const { destination, source, type } = result;
+    const { destination, source, type, draggableId } = result;
+    const sourceList = lists?.filter(
+      (list) => list._id === source.droppableId
+    )[0];
+    const destinationList = lists?.filter(
+      (list) => list._id === destination?.droppableId
+    )[0];
+    const tasksToSort = sourceList?.tasks;
+    const sourceTask = tasksToSort?.filter(
+      (task: Task) => task._id === draggableId
+    )[0];
+
     if (!destination) return;
 
     if (
@@ -74,6 +60,55 @@ const Lists = ({ localDispatch, state }: ListProps) => {
           current.lists,
           result
         );
+        if (newListsArray.length) {
+          setLists(newListsArray);
+          dispatch(listAction({ lists: newListsArray }, "order"));
+        }
+      }
+    }
+
+    if (type === "task" && tasksToSort && sourceTask && sourceList) {
+      if (destination && destination.droppableId === sourceList._id) {
+        const newSortedTasks: Array<Task> = createNewTaskArraySortedByOrder(
+          tasksToSort,
+          sourceList,
+          result
+        );
+
+        sourceList.tasks = newSortedTasks;
+        const newListsArray =
+          lists?.map((list) => {
+            if (list._id === sourceList._id) {
+              list = sourceList;
+            }
+            return list;
+          }) || [];
+        setLists(newListsArray);
+        dispatch(
+          taskAction({ tasks: newSortedTasks, list: sourceList }, "order")
+        );
+      } else {
+        const sourceSortedTasks = createSortedSourceTasks(
+          tasksToSort,
+          sourceList,
+          result
+        );
+        destinationList?.tasks.push(sourceTask);
+        const destinationSortedTasks = createSortedDestinationTasks(
+          destinationList,
+          result
+        );
+
+        const newListsArray =
+          lists?.map((list) => {
+            if (list._id === sourceList._id) {
+              list.tasks = sourceSortedTasks;
+            }
+            if (destinationSortedTasks && list._id === destinationList?._id) {
+              list.tasks = destinationSortedTasks;
+            }
+            return list;
+          }) || [];
         if (newListsArray.length) {
           setLists(newListsArray);
           dispatch(listAction({ lists: newListsArray }, "order"));
